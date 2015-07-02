@@ -1,4 +1,4 @@
-package com.gk.map;
+package com.gk.collection.map;
 
 public class TestHashMap {
 

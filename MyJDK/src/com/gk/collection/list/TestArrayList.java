@@ -1,4 +1,4 @@
-package com.gk.list;
+package com.gk.collection.list;
 
 import org.junit.Test;
 
