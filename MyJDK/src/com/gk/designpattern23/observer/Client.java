@@ -1,19 +1,16 @@
 package com.gk.designpattern23.observer;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class Client {
 
-public class Client extends TestCase{
+	@Test
+	public void test() {
+		WeatherData weatherData = new WeatherData();
 
-	MyObserver myObserver = new MyObserver();
-	public void test(){
-		BuGaoBan1 bugaoban1 = new BuGaoBan1();
-		
-		
-		myObserver.register(bugaoban1);
-		
-		myObserver.update();
+		CurrentConditionDisplay CurrentCondition上Display = new CurrentConditionDisplay(
+				weatherData);
+
+		weatherData.setMeasurements(80, 65, 30.4f);
 	}
 }
