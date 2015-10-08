@@ -1,7 +1,6 @@
 package com.gk.common.entity;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
  * 用户自己定义对象
@@ -9,19 +8,21 @@ import java.util.Comparator;
  * @author gk
  * 
  */
-public class TestBean implements Serializable, Comparable<TestBean> {
+public class Parents implements Serializable, Comparable<Parents> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name;
+	private transient String name;
 	private int num;
 
-	public TestBean(String name,int num){
+	public Parents(String name, int num) {
 		this.name = name;
 		this.num = num;
+		System.out.println("parents init...");
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -39,7 +40,7 @@ public class TestBean implements Serializable, Comparable<TestBean> {
 	}
 
 	@Override
-	public int compareTo(TestBean o) {
+	public int compareTo(Parents o) {
 		return (this.getNum() - o.getNum());
 	}
 
@@ -55,16 +56,25 @@ public class TestBean implements Serializable, Comparable<TestBean> {
 			return false;
 		if (obj == this)
 			return true;
-		if (obj.getClass() != TestBean.class)
+		if (obj.getClass() != Parents.class)
 			return false;
-		TestBean testBean = (TestBean) obj;
+		Parents testBean = (Parents) obj;
 		return testBean.getName().equals(name);
 	}
+
 	@Override
 	public String toString() {
-		return "TestBean[name="+name+",num="+num+"]";
+		return "TestBean[name=" + name + ",num=" + num + "]";
 	}
 
-	
+	private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+		s.defaultWriteObject();
+		s.writeUTF(name);
+	}
+	 private void readObject(java.io.ObjectInputStream s)
+		        throws java.io.IOException, ClassNotFoundException {
+		 s.defaultReadObject();
+		 this.name = s.readUTF();
+	 }
 
 }
