@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
 import com.gk.common.entity.TestBean;
+
+import junit.framework.TestCase;
 
 /**
  * 优先级队列 每次出队的是队列中优先级最高的元素 如果不指定Comparator，元素默认按照自然顺序排序，数字按照大小顺序，字符串按照字典顺序
