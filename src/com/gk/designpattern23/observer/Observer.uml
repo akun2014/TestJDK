@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA" name="Observer">
+  <packagedElement xmi:type="uml:Interface" xmi:id="_TvENUCYUEeWfGMbdLPmzgA" name="Subject">
+    <ownedOperation xmi:id="_mwXCEiYWEeWfGMbdLPmzgA" name="registerObserver"/>
+    <ownedOperation xmi:id="_m-C4wiYWEeWfGMbdLPmzgA" name="removeOberver"/>
+    <ownedOperation xmi:id="_nFe9gCYWEeWfGMbdLPmzgA" name="notifyObserver"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_b8VwwCYUEeWfGMbdLPmzgA" name="WeatherData" clientDependency="_hIvHsyYVEeWfGMbdLPmzgA">
+    <interfaceRealization xmi:id="_hIvHsyYVEeWfGMbdLPmzgA" name="InterfaceRealization1" supplier="_TvENUCYUEeWfGMbdLPmzgA" client="_b8VwwCYUEeWfGMbdLPmzgA" contract="_TvENUCYUEeWfGMbdLPmzgA"/>
+    <ownedOperation xmi:id="_OC074CYXEeWfGMbdLPmzgA" name="registeObserver"/>
+    <ownedOperation xmi:id="_OPBk0iYXEeWfGMbdLPmzgA" name="removeObserver"/>
+    <ownedOperation xmi:id="_OYGBQiYXEeWfGMbdLPmzgA" name="notifyObserver"/>
+    <ownedOperation xmi:id="_O_0voiYXEeWfGMbdLPmzgA" name="getTemperature"/>
+    <ownedOperation xmi:id="_PD-24iYXEeWfGMbdLPmzgA" name="getHumidity"/>
+    <ownedOperation xmi:id="_PIJlMiYXEeWfGMbdLPmzgA" name="getPressure"/>
+    <ownedOperation xmi:id="_PPlp8iYXEeWfGMbdLPmzgA" name="meansurementsCahnge"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_gzbbgCYUEeWfGMbdLPmzgA" name="CurrentConditionsDisplay" clientDependency="_ibS7xCYVEeWfGMbdLPmzgA _pCUTEyYVEeWfGMbdLPmzgA">
+    <ownedAttribute xmi:id="_n_A7oiYYEeWfGMbdLPmzgA" name="Subject"/>
+    <interfaceRealization xmi:id="_ibS7xCYVEeWfGMbdLPmzgA" name="InterfaceRealization1" supplier="_nnBPOCYUEeWfGMbdLPmzgA" client="_gzbbgCYUEeWfGMbdLPmzgA" contract="_nnBPOCYUEeWfGMbdLPmzgA"/>
+    <interfaceRealization xmi:id="_pCUTEyYVEeWfGMbdLPmzgA" name="InterfaceRealization2" supplier="_kKb-KCYVEeWfGMbdLPmzgA" client="_gzbbgCYUEeWfGMbdLPmzgA" contract="_kKb-KCYVEeWfGMbdLPmzgA"/>
+    <ownedOperation xmi:id="_Y6Z-4iYWEeWfGMbdLPmzgA" name="update"/>
+    <ownedOperation xmi:id="_cz4x4iYWEeWfGMbdLPmzgA" name="dipaly"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_nnBPOCYUEeWfGMbdLPmzgA" name="Observer">
+    <ownedOperation xmi:id="_PYuNQCYWEeWfGMbdLPmzgA" name="update"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_OeB8GiYVEeWfGMbdLPmzgA" name="A_&lt;subject>_&lt;observer>" memberEnd="_OeB8GyYVEeWfGMbdLPmzgA _OeB8HiYVEeWfGMbdLPmzgA" navigableOwnedEnd="_OeB8HiYVEeWfGMbdLPmzgA">
+    <ownedEnd xmi:id="_OeB8GyYVEeWfGMbdLPmzgA" name="subject" type="_TvENUCYUEeWfGMbdLPmzgA" association="_OeB8GiYVEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OeB8HCYVEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OeB8HSYVEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_OeB8HiYVEeWfGMbdLPmzgA" name="observer" type="_nnBPOCYUEeWfGMbdLPmzgA" association="_OeB8GiYVEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OeB8HyYVEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OeB8ICYVEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_kKb-KCYVEeWfGMbdLPmzgA" name="DisplayElement">
+    <ownedOperation xmi:id="_U16OsiYWEeWfGMbdLPmzgA" name="display"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_yLQ0miYVEeWfGMbdLPmzgA" name="A_&lt;currentConditionsDisplay>_&lt;subject>" memberEnd="_yLQ0myYVEeWfGMbdLPmzgA _yLQ0niYVEeWfGMbdLPmzgA" navigableOwnedEnd="_yLQ0niYVEeWfGMbdLPmzgA">
+    <ownedEnd xmi:id="_yLQ0myYVEeWfGMbdLPmzgA" name="currentConditionsDisplay" type="_gzbbgCYUEeWfGMbdLPmzgA" association="_yLQ0miYVEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yLQ0nCYVEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yLQ0nSYVEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_yLQ0niYVEeWfGMbdLPmzgA" name="subject" type="_TvENUCYUEeWfGMbdLPmzgA" association="_yLQ0miYVEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yLQ0nyYVEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yLQ0oCYVEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uhg0wCYXEeWfGMbdLPmzgA" name="CurrentConditionsDisplay" clientDependency="_uhg0wSYXEeWfGMbdLPmzgA _uhg0wiYXEeWfGMbdLPmzgA">
+    <interfaceRealization xmi:id="_uhg0wSYXEeWfGMbdLPmzgA" name="InterfaceRealization1" supplier="_nnBPOCYUEeWfGMbdLPmzgA" client="_uhg0wCYXEeWfGMbdLPmzgA" contract="_nnBPOCYUEeWfGMbdLPmzgA"/>
+    <interfaceRealization xmi:id="_uhg0wiYXEeWfGMbdLPmzgA" name="InterfaceRealization2" supplier="_kKb-KCYVEeWfGMbdLPmzgA" client="_uhg0wCYXEeWfGMbdLPmzgA" contract="_kKb-KCYVEeWfGMbdLPmzgA"/>
+    <ownedOperation xmi:id="_uhg0wyYXEeWfGMbdLPmzgA" name="update"/>
+    <ownedOperation xmi:id="_uhg0xCYXEeWfGMbdLPmzgA" name="dipaly"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wDfk6CYXEeWfGMbdLPmzgA" name="ThirdPatyDispaly" clientDependency="_4J_K4yYXEeWfGMbdLPmzgA _4nJA8yYXEeWfGMbdLPmzgA">
+    <ownedAttribute xmi:id="_q95HkiYYEeWfGMbdLPmzgA" name="Subject"/>
+    <interfaceRealization xmi:id="_4J_K4yYXEeWfGMbdLPmzgA" name="InterfaceRealization1" supplier="_nnBPOCYUEeWfGMbdLPmzgA" client="_wDfk6CYXEeWfGMbdLPmzgA" contract="_nnBPOCYUEeWfGMbdLPmzgA"/>
+    <interfaceRealization xmi:id="_4nJA8yYXEeWfGMbdLPmzgA" name="InterfaceRealization2" supplier="_kKb-KCYVEeWfGMbdLPmzgA" client="_wDfk6CYXEeWfGMbdLPmzgA" contract="_kKb-KCYVEeWfGMbdLPmzgA"/>
+    <ownedOperation xmi:id="_zfOr8iYXEeWfGMbdLPmzgA" name="update"/>
+    <ownedOperation xmi:id="_1U6bMiYXEeWfGMbdLPmzgA" name="display"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_YS-gmiYYEeWfGMbdLPmzgA" name="A_&lt;thirdPatyDispaly>_&lt;subject>" memberEnd="_YS-gmyYYEeWfGMbdLPmzgA _YS-gniYYEeWfGMbdLPmzgA" navigableOwnedEnd="_YS-gniYYEeWfGMbdLPmzgA">
+    <ownedEnd xmi:id="_YS-gmyYYEeWfGMbdLPmzgA" name="thirdPatyDispaly" type="_wDfk6CYXEeWfGMbdLPmzgA" association="_YS-gmiYYEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YS-gnCYYEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YS-gnSYYEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_YS-gniYYEeWfGMbdLPmzgA" name="subject" type="_TvENUCYUEeWfGMbdLPmzgA" association="_YS-gmiYYEeWfGMbdLPmzgA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YS-gnyYYEeWfGMbdLPmzgA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YS-goCYYEeWfGMbdLPmzgA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
