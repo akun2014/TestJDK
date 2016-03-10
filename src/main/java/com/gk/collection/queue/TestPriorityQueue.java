@@ -21,7 +21,7 @@ public class TestPriorityQueue extends TestCase {
 
 	@Test
 	public void test1() {
-		PriorityQueue<String> priorityQueue = new PriorityQueue<>();
+		PriorityQueue<String> priorityQueue = new PriorityQueue<String>();
 
 		// priorityQueue.addAll(Arrays.asList("a b c d e f g h i".split(" ")));
 		priorityQueue.offer("a");
@@ -75,7 +75,6 @@ public class TestPriorityQueue extends TestCase {
  
 		Comparator<TestBean> comparator = new Comparator<TestBean>() {
 
-			@Override
 			public int compare(TestBean o1, TestBean o2) {
 
 				return (o1.getNum() - o2.getNum());

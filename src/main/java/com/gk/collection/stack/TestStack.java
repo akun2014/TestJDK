@@ -10,7 +10,7 @@ public class TestStack {
 
 	@Test
 	public void test1(){
-		Stack<String> stack = new Stack<>();
+		Stack<String> stack = new Stack<String>();
 		Deque<Integer> stack2 = new ArrayDeque<Integer>();
 		 
 	}

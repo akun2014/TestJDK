@@ -12,14 +12,9 @@ public class TestMethods {
 		Class<TestMethod> method = TestMethod.class;
 		test2(method);
 	}
-	public static void test1(Class<TestMethod> method){
-		try {
-			Method me = method.getMethod("test1", null);
-			me.invoke(new TestMethod() , null);
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void test1(Class<TestMethod> method) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method me = method.getMethod("test1", null);
+		me.invoke(new TestMethod() , null);
 	}
 	public static void test2(Class<TestMethod> method){
 		try {

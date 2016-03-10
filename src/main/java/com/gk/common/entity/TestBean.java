@@ -1,5 +1,7 @@
 package com.gk.common.entity;
 
+import com.gk.designpattern23.templatemethod.CaffeineBeverage.withpattren.Test;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -21,6 +23,9 @@ public class TestBean implements Serializable, Comparable<TestBean> {
 	public TestBean(String name,int num){
 		this.name = name;
 		this.num = num;
+	}
+	public TestBean(){
+
 	}
 	public String getName() {
 		return name;
