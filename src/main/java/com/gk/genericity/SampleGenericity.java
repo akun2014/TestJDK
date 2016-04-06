@@ -5,9 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import junit.framework.TestCase;
-
-public class SampleGenericity extends TestCase {
+public class SampleGenericity {
 
 	public void test2(){
 		//从下面的例子可以看出泛型不是协变的
