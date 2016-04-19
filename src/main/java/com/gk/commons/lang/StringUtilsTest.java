@@ -47,4 +47,8 @@ public class StringUtilsTest {
 
         assertTrue(contains);
     }
+
+    public void test2() {
+
+    }
 }
