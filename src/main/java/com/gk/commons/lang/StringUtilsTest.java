@@ -1,11 +1,12 @@
 package com.gk.commons.lang;
 
 import org.apache.commons.lang3.StringUtils;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by akun on 16/4/6.
@@ -48,8 +49,12 @@ public class StringUtilsTest {
         assertTrue(contains);
     }
 
-    public void test2() {
-
+    @Test
+    public void tripTest() {
+        String str = " adf";
+        String stripStr = "a";
+        String strip = StringUtils.strip(str, stripStr);
+        System.out.println("result:"+strip);
     }
 
     public void test3() {
