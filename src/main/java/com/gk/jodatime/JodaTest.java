@@ -1,13 +1,15 @@
 package com.gk.jodatime;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Test;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class JodaTest {
 
@@ -90,5 +92,14 @@ public class JodaTest {
         Calendar calendar = Calendar.getInstance();
         dateTime = new DateTime(calendar);
 
+
+    }
+
+    //获取时刻：2017-05-17 00:00:00
+    @Test
+    public void test2() {
+        LocalDate now1 = LocalDate.now();
+        String s = now1.toDateTimeAtStartOfDay().toString("yyyy-MM-dd HH:mm:ss");
+        System.out.println(s);
     }
 }
