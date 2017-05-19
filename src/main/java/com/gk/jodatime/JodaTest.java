@@ -1,10 +1,9 @@
 package com.gk.jodatime;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
+import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -99,7 +98,16 @@ public class JodaTest {
     @Test
     public void test2() {
         LocalDate now1 = LocalDate.now();
-        String s = now1.toDateTimeAtStartOfDay().toString("yyyy-MM-dd HH:mm:ss");
+        String s = now1.toDateTimeAtStartOfDay().toString(ISODateTimeFormat.basicDate());
+//        String s = now1.toDateTimeAtStartOfDay().toString("yyyy-MM-dd HH:mm:ss");
+        System.out.println(s);
+    }
+
+    @Test
+    public void test3() {
+        Duration millis = Duration.millis(10000);
+        Seconds seconds = millis.toStandardSeconds();
+        int s = seconds.getSeconds();
         System.out.println(s);
     }
 }
