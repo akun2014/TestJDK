@@ -1,12 +1,15 @@
 package com.gk.jdk8.stream;
 
+import com.gk.bean.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -15,6 +18,8 @@ import java.util.stream.Stream;
 public class StreamTest {
     List<String> stringList;
     List<Integer> integerList;
+    List<Long> longList;
+    List<User> users;
 
     @Before
     public void build() {
@@ -25,6 +30,10 @@ public class StreamTest {
         stringList = Arrays.asList(str1, str2, str3, str4);
 
         integerList = Arrays.asList(3, 6, 8, 9);
+        longList = Arrays.asList(3L, 6L, 8L, 9L);
+
+        users = Arrays.asList(new User(22,"gk","M"),new User(24,"gk2","F"),new User(12,"gk3","M"));
+
     }
 
 
@@ -43,6 +52,30 @@ public class StreamTest {
         }).sorted().forEachOrdered(randomStr -> {
             System.out.println("random after order is " + randomStr);
         });
+    }
+
+    @Test
+    public void testCompator() {
+//        String reverseString = stringList.stream().min(Comparator.reverseOrder()).get();
+//        stringList.stream().max(Comparator.comparingLong(value -> value.length()));
+//        longList.stream().max(Comparator.comparingLong(Long::longValue)).get();
+//        longList.stream().mapToInt(i -> i.intValue()).max();
+//        stringList.stream().max(Comparator.comparingInt(value -> value.length()));
+//        System.out.println(reverseString);
+
+
+//        stringList.parallelStream().sorted().forEach(s-> System.out.println(s));
+//        stringList.parallelStream().sorted(Comparator.naturalOrder()).forEachOrdered(s -> System.out.println(s));
+//        stringList.parallelStream().sorted(Comparator.comparingInt(value -> Integer.parseInt(String.valueOf(value.charAt(value.length() - 1))))).forEachOrdered(s -> System.out.println(s));
+//        stringList.parallelStream().sorted(Comparator)
+        users.parallelStream().sorted(Comparator.comparing(User::getAge)).forEachOrdered(new Consumer<User>() {
+            @Override
+            public void accept(User user) {
+                System.out.println(user.getName());
+            }
+        });
+
+        System.out.println( 13/2);
     }
 
     @After
