@@ -9,7 +9,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -20,6 +22,7 @@ public class StreamTest {
     List<Integer> integerList;
     List<Long> longList;
     List<User> users;
+    Stream<List<Integer>> listStream;
 
     @Before
     public void build() {
@@ -34,6 +37,11 @@ public class StreamTest {
 
         users = Arrays.asList(new User(22,"gk","M"),new User(24,"gk2","F"),new User(12,"gk3","M"));
 
+        listStream = Stream.of(
+                Arrays.asList(1), Arrays.asList(1, 2, 3), Arrays.asList(3, 6, 8)
+        );
+
+//        IntStream
     }
 
 
@@ -76,6 +84,15 @@ public class StreamTest {
         });
 
         System.out.println( 13/2);
+    }
+
+    public void testGroupingby() {
+        Map<String, List<User>> collect = users.parallelStream().collect(Collectors.groupingBy(User::getName));
+    }
+
+    @Test
+    public void testFlatMap() {
+        Stream<Integer> integerStream = listStream.flatMap(integers -> integers.stream());
     }
 
     @After
