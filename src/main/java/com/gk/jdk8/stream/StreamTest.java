@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -76,13 +76,9 @@ public class StreamTest {
 //        stringList.parallelStream().sorted(Comparator.naturalOrder()).forEachOrdered(s -> System.out.println(s));
 //        stringList.parallelStream().sorted(Comparator.comparingInt(value -> Integer.parseInt(String.valueOf(value.charAt(value.length() - 1))))).forEachOrdered(s -> System.out.println(s));
 //        stringList.parallelStream().sorted(Comparator)
-        users.parallelStream().sorted(Comparator.comparing(User::getAge)).forEachOrdered(new Consumer<User>() {
-            @Override
-            public void accept(User user) {
-                System.out.println(user.getName());
-            }
-        });
-
+        users.parallelStream()
+                .sorted(Comparator.comparing(User::getAge))
+                .forEach(user -> System.out.print(user.getName()));
         System.out.println( 13/2);
     }
 
@@ -95,8 +91,20 @@ public class StreamTest {
         Stream<Integer> integerStream = listStream.flatMap(integers -> integers.stream());
     }
 
+    public void print(Object object) {
+        System.out.println(object);
+    }
+
     @After
     public void end() {
+
+        IntStream.range(1, 10).forEach(System.out::print);
+        IntStream.range(1, 19).forEach(this::print);
+        stringList.stream().map(Integer::parseInt);
+        stringList.parallelStream().filter(str -> str.length() > 9).map(str -> str.indexOf(1));
+        stringList.parallelStream().reduce("", String::concat);
+        stringList.parallelStream().filter(java.util.Objects::nonNull).map(String::toUpperCase).collect(Collectors.toList());
+
 
     }
 }

@@ -16,6 +16,7 @@ public class ForkJoinTest {
     public void test() {
         ForkJoinPool pool = new ForkJoinPool();
         CountTask task = new CountTask(1, 100);
+//        Integer invoke = pool.invoke(task);
         ForkJoinTask<Integer> submit = pool.submit(task);
 
 
@@ -36,7 +37,8 @@ public class ForkJoinTest {
 //        pool.isTerminated();
 //        pool.isShutdown();
         try {
-            System.out.printf("Main: ", task.get());
+            task.join();
+            System.out.printf("Main: ", submit.get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
