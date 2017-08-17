@@ -15,19 +15,38 @@ import java.util.Map;
 public class TestReids {
 
     private Jedis jedis;
+    final String key = "KEY";
+    final String value = "VALUE";
 
     @Before
     public void setup() {
-        jedis = new Jedis("192.168.0.105", 6379);
+//        jedis = new Jedis("192.168.115.151", 6379);
+        jedis = new Jedis("localhost", 6379);
         //权限认证
 //        jedis.auth("admin");
     }
 
+    @Test
+    public void keyTest() {
+
+    }
     /**
      * redis存储字符串
      */
     @Test
     public void testString() {
+
+        String nx = jedis.get("aaa");
+        System.out.println("nx:" + nx);
+
+        jedis.set(key, value, "NX", "EX", 10L);
+        Long flag1 = jedis.setnx(key, value);
+        Long flag2 = jedis.setnx(key, value);
+        System.out.println(flag1 + ":" + flag2);
+
+        String setex = jedis.setex(key, 3, value);
+        String setex1 = jedis.setex(key, 4, value);
+        System.out.println("setex:" + setex + " setex1:" + setex1);
 
         //-----添加数据----------
         jedis.set("name", "xinxin");//向key-->name中放入了value-->xinxin
@@ -143,4 +162,15 @@ public class TestReids {
 //        System.out.println(jedis.sort("a")); //[1, 3, 6, 9]  //输入排序后结果
 //        System.out.println(jedis.lrange("a", 0, -1));
     }
+
+
+    @Test
+    public void bitMapTest() {
+        jedis.set("bitmap", "0001");
+        System.out.println(jedis.get("bitmap"));
+        Long bitmap = jedis.bitcount("bitmap");
+        System.out.println("bitmap:" + bitmap);
+        jedis.setbit(key, 0, true);
+    }
+
 }
