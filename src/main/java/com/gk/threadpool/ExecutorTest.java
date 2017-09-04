@@ -5,6 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.*;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Created by akun on 2017/7/9.
@@ -89,5 +93,11 @@ public class ExecutorTest {
         scheduledThreadPool.scheduleAtFixedRate(run, 0, 2, TimeUnit.SECONDS);
 //        scheduledExecutorService.scheduleWithFixedDelay(run, 0, 1, TimeUnit.SECONDS);
         TimeUnit.MINUTES.sleep(2);
+    }
+
+    @Test
+    public void reduceTest() {
+        Integer total2 = Stream.of(1, 2, 3, 4, 5).reduce(0, (x, y) -> x + y);
+        assertEquals(new Integer(15), total2);
     }
 }
