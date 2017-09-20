@@ -10,9 +10,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * Created by akun on 2017/5/13.
@@ -83,7 +84,7 @@ public class StreamTest {
     }
 
     public void testGroupingby() {
-        Map<String, List<User>> collect = users.parallelStream().collect(Collectors.groupingBy(User::getName));
+        Map<String, List<User>> collect = users.parallelStream().collect(groupingBy(User::getName));
     }
 
     @Test
@@ -95,6 +96,13 @@ public class StreamTest {
         System.out.println(object);
     }
 
+
+    @Test
+    public void collectTest() {
+        StringBuilder builder = stringList.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
+        stringList.stream().collect(joining("1","",""));
+    }
+
     @After
     public void end() {
 
@@ -103,7 +111,7 @@ public class StreamTest {
         stringList.stream().map(Integer::parseInt);
         stringList.parallelStream().filter(str -> str.length() > 9).map(str -> str.indexOf(1));
         stringList.parallelStream().reduce("", String::concat);
-        stringList.parallelStream().filter(java.util.Objects::nonNull).map(String::toUpperCase).collect(Collectors.toList());
+        stringList.parallelStream().filter(java.util.Objects::nonNull).map(String::toUpperCase).collect(toList());
 
 
     }

@@ -20,8 +20,8 @@ public class TestReids {
 
     @Before
     public void setup() {
-//        jedis = new Jedis("192.168.115.151", 6379);
-        jedis = new Jedis("localhost", 6379);
+        jedis = new Jedis("192.168.1.5", 6379);
+//        jedis = new Jedis("localhost", 6379);
         //权限认证
 //        jedis.auth("admin");
     }
