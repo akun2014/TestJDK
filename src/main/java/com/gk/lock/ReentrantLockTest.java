@@ -1,6 +1,5 @@
 package com.gk.lock;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -10,11 +9,11 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by akun on 2017/9/20.
  */
-public class LockTest {
+public class ReentrantLockTest {
     private final Lock lock = new ReentrantLock();
     final String FLAG = "FLAG";
 
-    @Before
+//    @Before
     public void init() throws InterruptedException {
         synchronized (FLAG) {
             System.out.println("lock init");
