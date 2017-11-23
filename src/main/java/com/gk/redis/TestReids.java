@@ -20,10 +20,10 @@ public class TestReids {
 
     @Before
     public void setup() {
-        jedis = new Jedis("192.168.1.5", 6379);
-//        jedis = new Jedis("localhost", 6379);
+//        jedis = new Jedis("192.168.1.5", 6379);
+        jedis = new Jedis("r-bp195a5a3b74eee4.redis.rds.aliyuncs.com", 6379);
         //权限认证
-//        jedis.auth("admin");
+        jedis.auth("YgqhmcsJoqWYb6JX");
     }
 
     @Test
