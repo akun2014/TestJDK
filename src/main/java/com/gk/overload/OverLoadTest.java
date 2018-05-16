@@ -39,7 +39,7 @@ public class OverLoadTest {
 
     public static void main(String[] args) {
         Human man = new Man();
-        Human women = new Women();
+        Women women = new Women();
 
         OverLoadTest overLoadTest = new OverLoadTest();
         overLoadTest.say(man);
