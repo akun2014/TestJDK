@@ -62,6 +62,8 @@ public class RegexTest {
             System.out.println(matcher.group());
         }
 
+        Runtime.getRuntime().gc();
+
 
     }
 }
