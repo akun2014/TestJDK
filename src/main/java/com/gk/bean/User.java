@@ -14,4 +14,37 @@ public class User {
     private Integer age;
     private String name;
     private String gender;
+
+    abstract class Animal {
+        abstract void play();
+    }
+
+    class Dog extends Animal{
+        void play(){
+            System.out.println("play with human");
+        }
+    }
+
+    public  void main(String[] args){
+        Animal d = new Dog();
+        d.play();
+
+        A a = new A();
+    }
+
+
+    static class A{}
+
+    private class B{}
+
+    public class CC {}
+
+    protected class Cc{}
+
+    abstract class D{}
+
+    final class E{}
+
+
+
 }
