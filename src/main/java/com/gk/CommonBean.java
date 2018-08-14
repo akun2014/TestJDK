@@ -36,4 +36,22 @@ public class CommonBean {
         System.out.println(name);
         System.out.println(name2);
     }
+
+    @Test
+    public void test4() {
+        int math = math(5);
+        System.out.println(math);
+    }
+
+    public int math(int i) {
+        try {
+            ++i;
+            throw new RuntimeException("");
+        } catch (Exception e) {
+            i++;
+            return i;
+        } finally {
+            return ++i;
+        }
+    }
 }

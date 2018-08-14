@@ -2,6 +2,11 @@ package com.gk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by akun on 2018/5/10.
@@ -41,9 +46,9 @@ public class CommonTest {
 
     @Test
     public void testt() {
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        String name = contextClassLoader.getClass().getName();
-        System.out.println(name);
+        List<String> list = new ArrayList<>();
+        String[] strings = list.toArray(new String[Collections.emptyList().size()]);
+        Assert.notNull(strings);
     }
 
 
