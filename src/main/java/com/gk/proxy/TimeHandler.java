@@ -21,7 +21,7 @@ public class TimeHandler implements InvocationHandler {
             throws Throwable {
         System.out.println("日志记录开始");
         long s = System.currentTimeMillis();
-        method.invoke(target);
+        method.invoke(target, args);
         long e = System.currentTimeMillis();
         System.out.println("日志记录结束");
         System.out.println("运行时间" + (e - s));
