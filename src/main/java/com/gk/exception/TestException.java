@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * @author gk
@@ -65,6 +66,7 @@ public class TestException {
         } finally {
             System.out.println(" 这里是 finally块");
             System.out.println("num:" + num);
+            return 5;
         }
     }
 
@@ -78,6 +80,21 @@ public class TestException {
             exception.printStackTrace();
         } catch (Exception e) {
             System.out.println("在这里处理例外的异常");
+        }
+    }
+
+    @Test
+    public void testException() {
+        //try-catch-resources
+        File file = new File("");
+        try (FileInputStream inputStream = new FileInputStream(file)) {
+            //do some work
+            int available = inputStream.available();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
