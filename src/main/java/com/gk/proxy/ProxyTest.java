@@ -6,9 +6,7 @@ import org.junit.Test;
 import sun.misc.ProxyGenerator;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
+import java.lang.reflect.*;
 
 
 /*
@@ -46,5 +44,14 @@ public class ProxyTest {
         log.info("path:{}", paths);
 
         FileUtils.writeByteArrayToFile(new File("MyProxy.class"), proxyClass);
+    }
+
+    @Test
+    public void proxyTest2() throws Exception {
+        Class<?> proxyClass = Proxy.getProxyClass(getClass().getClassLoader(), Car.class.getInterfaces());
+        Constructor<?> constructor = proxyClass.getConstructor(InvocationHandler.class);
+        InvocationHandler timeHandler = new TimeHandler(new Car());
+        Moveable mo = (Moveable) constructor.newInstance(timeHandler);
+        mo.move();
     }
 }

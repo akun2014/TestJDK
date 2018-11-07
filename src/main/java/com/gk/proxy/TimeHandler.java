@@ -13,8 +13,9 @@ public class TimeHandler implements InvocationHandler {
     }
 
     /**
-     * proxy 被代理对象
-     * method
+     * proxy jdk生成的代理对象
+     * method 代理方法
+     * args 方法参数
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)
