@@ -75,8 +75,9 @@ public class ExecutorTest {
     }
 
     @Test
-    public void fixedThreadPoolTest() {
+    public void fixedThreadPoolTest() throws InterruptedException {
 
+        fixedThreadPool.awaitTermination(1, TimeUnit.MILLISECONDS);
     }
 
     @Test
