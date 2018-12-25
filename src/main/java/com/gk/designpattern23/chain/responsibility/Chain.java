@@ -14,11 +14,11 @@ public class Chain {
         this.handlerList = handlerList;
     }
 
-    public void process() {
+    public int process() {
         if (index >= handlerList.size()) {
-            return;
+            return 2;
         }
         System.out.println("i=" + index);
-        handlerList.get(index++).execute(this);
+        return handlerList.get(index++).execute(this);
     }
 }

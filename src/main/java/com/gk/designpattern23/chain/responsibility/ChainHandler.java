@@ -5,10 +5,14 @@ package com.gk.designpattern23.chain.responsibility;
  */
 public abstract class ChainHandler {
 
-    public void execute(Chain chain) {
-        handleRequest();
-        chain.process();
+    public int execute(Chain chain) {
+        int result = handleRequest();
+        System.out.println("handler return result:" + result);
+        if (result % 2 == 0) {
+            return result;
+        }
+        return chain.process();
     }
 
-    protected abstract void handleRequest();
+    protected abstract int handleRequest();
 }

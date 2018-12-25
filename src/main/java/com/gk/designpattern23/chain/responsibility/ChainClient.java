@@ -13,10 +13,11 @@ public class ChainClient {
                 new ChainHandlerA(),
                 new ChainHandlerB(),
                 new ChainHandlerC());
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             Chain chain = new Chain();
             chain.setHandlerList(chainHandlers);
-            chain.process();
+            int process = chain.process();
+            System.out.println("chain finished result:" + process);
         }
     }
 }
