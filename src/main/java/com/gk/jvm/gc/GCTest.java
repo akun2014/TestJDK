@@ -9,23 +9,27 @@ public class GCTest {
 
 
     public static void main(String[] args) {
-//        allocationTest();
+        allocationTest();
 
 //        pretenureSieThresholdTest();
 
-        tenuringThresholdTest();
+//        tenuringThresholdTest();
 //        tenuringThreshold2Test();
 //        handlerPromotionTest();
     }
 
     /**
      * -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+UseSerialGC -XX:+PrintGCDetails -XX:SurvivorRatio=8 -client
+     * -Xmn 新生代大小
      */
     public static void allocationTest() {
         byte[] obj0 = new byte[2 * _1MB];
         byte[] obj1 = new byte[2 * _1MB];
         byte[] obj2 = new byte[2 * _1MB];
-        byte[] obj3 = new byte[4 * _1MB];
+        byte[] obj3 = new byte[2 * _1MB];
+        byte[] obj4 = new byte[2 * _1MB];
+        byte[] obj5 = new byte[2 * _1MB];
+        byte[] obj6 = new byte[4 * _1MB];
     }
 
     /**
