@@ -14,6 +14,10 @@ import org.springframework.context.support.StaticApplicationContext;
 
 /**
  * Created by akun on 2019/2/22.
+ * @see RootBeanDefinition
+ * @see ChildBeanDefinition
+ * @see GenericBeanDefinition
+ * @see AnnotatedGenericBeanDefinition
  */
 @Slf4j
 public class BeanDefinitionTest {
