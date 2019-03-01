@@ -1,4 +1,4 @@
-package com.gk;
+package com.gk.spring.ioc;
 
 import com.gk.bean.Bar;
 import com.gk.bean.Person;
