@@ -1,4 +1,4 @@
-package com.gk;
+package com.gk.spring.ioc;
 
 import com.gk.bean.User;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,7 @@ import org.springframework.context.support.StaticApplicationContext;
 
 /**
  * Created by akun on 2019/2/22.
+ *
  * @see RootBeanDefinition
  * @see ChildBeanDefinition
  * @see GenericBeanDefinition

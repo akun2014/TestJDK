@@ -1,4 +1,4 @@
-package com.gk;
+package com.gk.spring.ioc;
 
 import com.gk.bean.User;
 import lombok.extern.slf4j.Slf4j;
