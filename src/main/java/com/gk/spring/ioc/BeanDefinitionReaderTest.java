@@ -1,10 +1,12 @@
 package com.gk.spring.ioc;
 
+import com.gk.bean.Bar;
 import com.gk.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.support.StaticApplicationContext;
 
 /**
@@ -27,11 +29,21 @@ public class BeanDefinitionReaderTest {
     }
 
     @Test
-    public void test() {
+    public void testPropertiesBeanDefinitionReader() {
         PropertiesBeanDefinitionReader reader = new PropertiesBeanDefinitionReader(applicationContext);
         reader.loadBeanDefinitions("application.properties");
 
         User user = (User) applicationContext.getBean("user");
         System.out.println(user.toString());
+    }
+
+    @Test
+    public void testClassPathBeanDefinitionScanner() {
+        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext);
+        scanner.scan("com.gk.bean");
+        applicationContext.refresh();
+
+        Bar bar = (Bar) applicationContext.getBean("bar");
+        System.out.println(bar.toString());
     }
 }
