@@ -17,7 +17,7 @@ import org.springframework.context.support.GenericApplicationContext;
 public class ComponentScanTest {
     @Test
     public void testAnnotationConfigApplicationContext() {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.bean");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.bean","com.gk.spring.ioc");
         BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("bar");
         log.info("clazz:{}", beanDefinition.getClass().getCanonicalName()); //ScannedGenericBeanDefinition
         log.info("{}", beanDefinition);
