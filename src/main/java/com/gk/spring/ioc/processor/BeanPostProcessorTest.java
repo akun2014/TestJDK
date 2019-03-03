@@ -1,4 +1,4 @@
-package com.gk.spring.ioc;
+package com.gk.spring.ioc.processor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;

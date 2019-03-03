@@ -1,7 +1,10 @@
 package com.gk.proxy.cglib;
 
 import com.gk.proxy.Car;
+import com.gk.proxy.bean.LazyBean;
+import com.gk.proxy.bean.PropertyBean;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.*;
 import org.junit.Test;
 
@@ -70,17 +73,36 @@ public class CgLibProxyTest {
         @Override
         public int accept(Method method) {
             if ("move".equals(method.getName())) {
-                return 0;
+                return 1;
             }
-            return 1;
+            return 0;
         }
     }
 
     @Test
     public void proxyTest() {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
         Car proxyCar = proxy(new Car());
         proxyCar.move();
-//        proxyCar.speedUp(2);
+        proxyCar.speedUp(2);
+    }
+
+    @Test
+    public void test() {
+        LazyBean lazyBean = new LazyBean("lazyBean");
+
+        PropertyBean propertyBean = lazyBean.getPropertyBean();
+        log.info("{}", propertyBean.getKey());
+
+        PropertyBean propertyBean1 = lazyBean.getPropertyBean();
+        log.info("{}", propertyBean1.getKey());
+
+
+        PropertyBean propertyBeanDispatcher = lazyBean.getPropertyBeanDispatcher();
+        log.info("{}", propertyBeanDispatcher.getKey());
+
+        PropertyBean propertyBeanDispatcher1 = lazyBean.getPropertyBeanDispatcher();
+        log.info("{}", propertyBeanDispatcher1.getKey());
 
     }
 }
