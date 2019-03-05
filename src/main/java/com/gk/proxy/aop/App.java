@@ -4,6 +4,7 @@ import com.gk.proxy.aop.advice.TicketServiceAfterReturningAdvice;
 import com.gk.proxy.aop.advice.TicketServiceAroundAdvice;
 import com.gk.proxy.aop.advice.TicketServiceBeforeAdvice;
 import com.gk.proxy.aop.advice.TicketServiceThrowsAdvice;
+import net.sf.cglib.core.DebuggingClassWriter;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.framework.ProxyFactoryBean;
 
@@ -39,6 +40,7 @@ public class App {
         proxyFactoryBean.addAdvice(beforeAdvice);
         proxyFactoryBean.setProxyTargetClass(false);
         //7通过ProxyFactoryBean生成Proxy对象
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
         TicketService ticketService = (TicketService) proxyFactoryBean.getObject();
         ticketService.sellTicket();
     }
