@@ -1,9 +1,9 @@
 package com.gk.proxy.aop;
 
-import com.gk.proxy.aop.advice.TicketServiceAfterReturningAdvice;
-import com.gk.proxy.aop.advice.TicketServiceAroundAdvice;
-import com.gk.proxy.aop.advice.TicketServiceBeforeAdvice;
-import com.gk.proxy.aop.advice.TicketServiceThrowsAdvice;
+import com.gk.spring.aop.advice.TicketServiceAfterReturningAdvice;
+import com.gk.spring.aop.advice.TicketServiceAroundAdvice;
+import com.gk.spring.aop.advice.TicketServiceBeforeAdvice;
+import com.gk.spring.aop.advice.TicketServiceThrowsAdvice;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.framework.ProxyFactoryBean;
 

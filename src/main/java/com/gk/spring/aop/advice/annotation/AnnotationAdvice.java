@@ -1,4 +1,4 @@
-package com.gk.proxy.aop.advice.annotation;
+package com.gk.spring.aop.advice.annotation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.*;

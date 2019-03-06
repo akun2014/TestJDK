@@ -1,6 +1,6 @@
 package com.gk.spring;
 
-import com.gk.bean.Person;
+import com.gk.support.bean.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

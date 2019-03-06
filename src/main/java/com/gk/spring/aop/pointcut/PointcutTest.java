@@ -1,7 +1,7 @@
-package com.gk.proxy.aop.pointcut;
+package com.gk.spring.aop.pointcut;
 
-import com.gk.bean.Bar;
-import com.gk.proxy.aop.advice.annotation.AnnotationAdvice;
+import com.gk.support.bean.Bar;
+import com.gk.spring.aop.advice.annotation.AnnotationAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class PointcutTest {
 
     @Before
     public void init() {
-        applicationContext = new AnnotationConfigApplicationContext("com.gk.bean");
+        applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
     }
 
     /**

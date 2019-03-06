@@ -1,6 +1,6 @@
 package com.gk.spring.ioc;
 
-import com.gk.bean.User;
+import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;

@@ -1,6 +1,6 @@
 package com.gk.jdk8.stream;
 
-import com.gk.bean.User;
+import com.gk.support.bean.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;

@@ -1,7 +1,7 @@
 package com.gk.spring.ioc;
 
-import com.gk.bean.Bar;
-import com.gk.bean.User;
+import com.gk.support.bean.Bar;
+import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
@@ -40,7 +40,7 @@ public class BeanDefinitionReaderTest {
     @Test
     public void testClassPathBeanDefinitionScanner() {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext);
-        scanner.scan("com.gk.bean");
+        scanner.scan("com.gk.support.bean");
         applicationContext.refresh();
 
         Bar bar = (Bar) applicationContext.getBean("bar");

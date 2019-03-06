@@ -1,8 +1,8 @@
 package com.gk.spring.ioc;
 
-import com.gk.bean.Bar;
-import com.gk.bean.Person;
-import com.gk.bean.User;
+import com.gk.support.bean.Bar;
+import com.gk.support.bean.Person;
+import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -17,7 +17,7 @@ import org.springframework.context.support.GenericApplicationContext;
 public class ComponentScanTest {
     @Test
     public void testAnnotationConfigApplicationContext() {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.bean","com.gk.spring.ioc");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean","com.gk.spring.ioc");
         BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("bar");
         log.info("clazz:{}", beanDefinition.getClass().getCanonicalName()); //ScannedGenericBeanDefinition
         log.info("{}", beanDefinition);

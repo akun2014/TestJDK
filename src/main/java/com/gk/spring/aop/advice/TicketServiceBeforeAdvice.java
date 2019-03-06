@@ -1,4 +1,4 @@
-package com.gk.proxy.aop.advice;
+package com.gk.spring.aop.advice;
 
 import org.springframework.aop.MethodBeforeAdvice;
 
