@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 @Slf4j
 public class PointcutTest {
 
-    private final String expression = "execution( * sellTicket(..))";
+    private final String expression = "execution( * bara(..))";
 
     ApplicationContext applicationContext;
     MethodMatcher methodMatcher;
@@ -38,13 +38,14 @@ public class PointcutTest {
      * 表达式声明pointcut
      */
     @Test
-    public void test() {
+    public void test() throws NoSuchMethodException {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setBeanFactory(applicationContext);
         pointcut.setExpression(expression);
 
         methodMatcher = pointcut.getMethodMatcher();
-        assertTrue(pointcut.matches(Bar.class));
+        Method method = Bar.class.getMethod("bar");
+        assertTrue(pointcut.matches(method, Bar.class));
     }
 
     /**
