@@ -3,12 +3,17 @@ package com.gk.proxy.aop.advice.annotation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by akun on 2019/3/3.
  */
 @Slf4j
 @Aspect
+@Component
+@EnableAspectJAutoProxy
 public class AnnotationAdvice {
 
 
@@ -27,12 +32,12 @@ public class AnnotationAdvice {
         log.info("after method invoke");
     }
 
-    @AfterReturning
+    @AfterReturning("p1()")
     public void afterReturning() {
         log.info("afterReturning method invoke");
     }
 
-    @AfterThrowing
+    @AfterThrowing("p1()")
     public void afterThrowing() {
         log.info("afterThrowing method invoke");
     }
