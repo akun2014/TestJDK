@@ -1,4 +1,4 @@
-package com.gk.bean;
+package com.gk.support.bean;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

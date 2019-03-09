@@ -1,6 +1,6 @@
 package com.gk.spring.ioc;
 
-import com.gk.bean.Foo;
+import com.gk.support.bean.Foo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

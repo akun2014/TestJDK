@@ -1,4 +1,4 @@
-package com.gk.bean;
+package com.gk.support.bean;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +33,13 @@ public class Bar implements InitializingBean, BeanNameAware {
     @Override
     public void setBeanName(String name) {
         this.beanName = name;
+    }
+
+    public void bar() {
+        log.info("invoke bar method");
+    }
+
+    public String append(String source) {
+        return "bar" + source;
     }
 }

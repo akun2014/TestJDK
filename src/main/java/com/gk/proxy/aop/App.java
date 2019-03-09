@@ -1,9 +1,10 @@
 package com.gk.proxy.aop;
 
-import com.gk.proxy.aop.advice.TicketServiceAfterReturningAdvice;
-import com.gk.proxy.aop.advice.TicketServiceAroundAdvice;
-import com.gk.proxy.aop.advice.TicketServiceBeforeAdvice;
-import com.gk.proxy.aop.advice.TicketServiceThrowsAdvice;
+import com.gk.spring.aop.advice.TicketServiceAfterReturningAdvice;
+import com.gk.spring.aop.advice.TicketServiceAroundAdvice;
+import com.gk.spring.aop.advice.TicketServiceBeforeAdvice;
+import com.gk.spring.aop.advice.TicketServiceThrowsAdvice;
+import net.sf.cglib.core.DebuggingClassWriter;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.framework.ProxyFactoryBean;
 
@@ -15,6 +16,7 @@ import org.springframework.aop.framework.ProxyFactoryBean;
  */
 public class App {
     public static void main(String[] args) {
+//        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
         //1.针对不同的时期类型，提供不同的Advice
         Advice beforeAdvice = new TicketServiceBeforeAdvice();
         Advice afterReturningAdvice = new TicketServiceAfterReturningAdvice();
@@ -37,7 +39,6 @@ public class App {
         proxyFactoryBean.addAdvice(aroundAdvice);
         proxyFactoryBean.addAdvice(throwsAdvice);
         proxyFactoryBean.addAdvice(beforeAdvice);
-        proxyFactoryBean.setProxyTargetClass(false);
         //7通过ProxyFactoryBean生成Proxy对象
         TicketService ticketService = (TicketService) proxyFactoryBean.getObject();
         ticketService.sellTicket();
