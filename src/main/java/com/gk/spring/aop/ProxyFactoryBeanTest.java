@@ -3,10 +3,12 @@ package com.gk.spring.aop;
 import com.gk.spring.aop.advice.TicketServiceAfterReturningAdvice;
 import com.gk.spring.aop.advice.TicketServiceBeforeAdvice;
 import com.gk.support.bean.Bar;
+import com.gk.support.service.BarService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -18,7 +20,8 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void test() {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.bean");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
         ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
 
         proxyFactoryBean.setBeanFactory(applicationContext);
@@ -48,4 +51,22 @@ public class ProxyFactoryBeanTest {
         Bar bean = applicationContext.getBean(Bar.class);
         bean.bar();
     }
+
+    @Test
+    public void testInterface() throws Exception {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support", "com.gk.spring.aop.advice");
+        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+        proxyFactoryBean.setBeanFactory(applicationContext);
+
+        proxyFactoryBean.setTargetName("barServiceImpl");
+        proxyFactoryBean.setProxyTargetClass(false);
+        proxyFactoryBean.setInterceptorNames("ticketServiceAfterReturningAdvice");
+
+        BarService barService = (BarService) proxyFactoryBean.getObject();
+        barService.bar();
+        barService.bar("test");
+    }
+
+
 }
