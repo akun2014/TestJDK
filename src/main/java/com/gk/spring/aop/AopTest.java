@@ -26,6 +26,7 @@ public class AopTest {
     @Test
     public void test() {
         Bar bar = applicationContext.getBean(Bar.class);
-        bar.bar();
+        String aoptest = bar.append("aoptest");
+        log.info("{}", aoptest);
     }
 }
