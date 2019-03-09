@@ -15,7 +15,7 @@ public class FileSystemClassLoader extends ClassLoader {
         if (classData == null) {
             throw new ClassNotFoundException();
         } else {
-            name = "com.gk.bean.User";
+            name = "com.gk.support.bean.User";
             return defineClass(name, classData, 0, classData.length);
         }
     }
@@ -56,7 +56,7 @@ public class FileSystemClassLoader extends ClassLoader {
 
             System.out.println("Customer class loader:" + clazz.getClassLoader().toString());
 
-            System.out.println(obj1 instanceof com.gk.bean.User);
+            System.out.println(obj1 instanceof com.gk.support.bean.User);
         } catch (Exception e) {
             e.printStackTrace();
         }

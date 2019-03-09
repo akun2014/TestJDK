@@ -8,5 +8,5 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <context:annotation-config/>
     <context:component-scan base-package="com.gk"/>
 
-    <bean id="user" class="com.gk.bean.User"/>
+    <bean id="user" class="com.gk.support.bean.User"/>
 </beans>

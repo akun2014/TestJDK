@@ -1,7 +1,7 @@
-package com.gk.proxy.aop.advisor;
+package com.gk.spring.aop.advisor;
 
-import com.gk.bean.Bar;
-import com.gk.proxy.aop.advice.TicketServiceAfterReturningAdvice;
+import com.gk.support.bean.Bar;
+import com.gk.spring.aop.advice.TicketServiceAfterReturningAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.aop.Advice;
 import org.junit.After;
@@ -64,7 +64,7 @@ public class AdvisorTest {
 
     @Test
     public void testDefaultBeanFactoryPointcutAdvisor() throws NoSuchMethodException {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.bean");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
         DefaultBeanFactoryPointcutAdvisor advisor = new DefaultBeanFactoryPointcutAdvisor();
 
         advisor.setPointcut(new NameMatchMethodPointcut());
