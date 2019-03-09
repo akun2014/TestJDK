@@ -34,4 +34,12 @@ public class Bar implements InitializingBean, BeanNameAware {
     public void setBeanName(String name) {
         this.beanName = name;
     }
+
+    public void bar() {
+        log.info("invoke bar method");
+    }
+
+    public String append(String source) {
+        return "bar" + source;
+    }
 }
