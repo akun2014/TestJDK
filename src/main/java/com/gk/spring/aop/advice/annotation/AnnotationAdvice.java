@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class AnnotationAdvice {
 
 
-    @Pointcut("execution(public * com.gk.bean..*.bar(..))")
+    @Pointcut("execution(public * com.gk.support..*.bar(..))")
     public void p1() {
 
     }
