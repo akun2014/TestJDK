@@ -1,6 +1,6 @@
 package com.gk.spring.aop;
 
-import com.gk.bean.Bar;
+import com.gk.support.bean.Bar;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

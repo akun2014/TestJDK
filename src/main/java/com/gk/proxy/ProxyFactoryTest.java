@@ -1,7 +1,7 @@
 package com.gk.proxy;
 
-import com.gk.bean.Bar;
-import com.gk.proxy.aop.advice.TicketServiceBeforeAdvice;
+import com.gk.spring.aop.advice.TicketServiceBeforeAdvice;
+import com.gk.support.bean.Bar;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
