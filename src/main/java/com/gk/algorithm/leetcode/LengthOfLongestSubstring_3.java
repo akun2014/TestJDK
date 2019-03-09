@@ -1,4 +1,4 @@
-package com.gk;
+package com.gk.algorithm.leetcode;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by akun on 2019/2/26.
  */
-public class Solution {
+public class LengthOfLongestSubstring_3 {
 
     @Test
     public void test() {
