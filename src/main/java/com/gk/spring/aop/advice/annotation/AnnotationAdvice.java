@@ -15,11 +15,11 @@ import java.util.Arrays;
 @Slf4j
 @Aspect
 @Component
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AnnotationAdvice {
 
 
-    @Pointcut("execution(public * com.gk.bean..*.bar(..))")
+    @Pointcut("execution(public * com.gk.support..*.bar(..))")
     public void p1() {
 
     }
@@ -48,7 +48,7 @@ public class AnnotationAdvice {
     @Around("p1()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object[] args = point.getArgs();
-        log.info("{}", Arrays.toString(args));
+        log.info("args:{}", Arrays.toString(args));
         log.info("around method invoke do");
         Object result = point.proceed();
         log.info("around method invoke done. result:{}", result);

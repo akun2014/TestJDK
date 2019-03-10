@@ -6,7 +6,10 @@ import org.junit.Test;
 import sun.misc.ProxyGenerator;
 
 import java.io.File;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 
 
 /*
@@ -37,13 +40,10 @@ public class ProxyTest {
     @Test
     public void proxyCodeGenerator() throws Exception {
         Car car = new Car();
-        Class<? extends Car> clazz = car.getClass();
-        String simpleName = car.getClass().getSimpleName();
+        String simpleName = car.getClass().getSimpleName() + "Proxy";
         byte[] proxyClass = ProxyGenerator.generateProxyClass(simpleName, car.getClass().getInterfaces());
-        String paths = clazz.getResource(".").getPath();
-        log.info("path:{}", paths);
 
-        FileUtils.writeByteArrayToFile(new File("MyProxy.class"), proxyClass);
+        FileUtils.writeByteArrayToFile(new File(simpleName + ".class"), proxyClass);
     }
 
     @Test
