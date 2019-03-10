@@ -68,5 +68,12 @@ public class ProxyFactoryBeanTest {
         barService.bar("test");
     }
 
+    @Test
+    public void testApp() throws Exception {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.service", "com.gk.spring.aop.advice.annotation");
 
+        BarService barService = applicationContext.getBean(BarService.class);
+        barService.bar("test");
+    }
 }
