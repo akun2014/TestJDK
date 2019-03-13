@@ -56,7 +56,7 @@ public class ResourceTest {
 
     @Test
     public void testUrlResource() throws IOException {
-        UrlResource resource = new UrlResource(filepath);
+        UrlResource resource = new UrlResource("file:" + filepath);
         if (resource.exists()) {
             File file = resource.getFile();
             System.out.println(file.getPath());
