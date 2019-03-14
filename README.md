@@ -1,2 +1,2 @@
 # TestJDK
-各类Test归集
+Test cases created for learning
