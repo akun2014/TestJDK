@@ -1,5 +1,6 @@
 package com.gk.spring.ioc;
 
+import com.gk.spring.IOCBase;
 import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -10,7 +11,8 @@ import org.springframework.beans.factory.support.ChildBeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.StaticApplicationContext;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Created by akun on 2019/2/22.
@@ -21,9 +23,7 @@ import org.springframework.context.support.StaticApplicationContext;
  * @see AnnotatedGenericBeanDefinition
  */
 @Slf4j
-public class BeanDefinitionTest {
-
-    StaticApplicationContext applicationContext = new StaticApplicationContext();
+public class BeanDefinitionTest extends IOCBase {
 
     @Test
     public void testRootBeanDefinition() {
@@ -35,7 +35,7 @@ public class BeanDefinitionTest {
 
         applicationContext.refresh();
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.getName());
+        notNull(user, "bean may not be null");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class BeanDefinitionTest {
 
         applicationContext.refresh();
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.getName());
+        notNull(user, "bean may not be null");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class BeanDefinitionTest {
 
         applicationContext.refresh();
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.getName());
+        notNull(user, "bean may not be null");
     }
 
     /**
@@ -70,7 +70,7 @@ public class BeanDefinitionTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanDefinition.xml");
 
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.getName());
+        notNull(user, "bean may not be null");
 
         BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("item");
     }
@@ -87,7 +87,7 @@ public class BeanDefinitionTest {
 
         applicationContext.refresh();
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.getName());
+        notNull(user, "bean may not be null");
 
     }
 

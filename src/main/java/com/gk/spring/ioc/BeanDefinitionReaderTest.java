@@ -1,31 +1,66 @@
 package com.gk.spring.ioc;
 
+import com.gk.spring.IOCBase;
 import com.gk.support.bean.Bar;
 import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.beans.factory.xml.DefaultDocumentLoader;
+import org.springframework.beans.factory.xml.DocumentLoader;
+import org.springframework.beans.factory.xml.ResourceEntityResolver;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.context.support.StaticApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.xml.SimpleSaxErrorHandler;
+import org.springframework.util.xml.XmlValidationModeDetector;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Created by akun on 2019/2/22.
  *
  * @see XmlBeanDefinitionReader
+ * @see ClassPathBeanDefinitionScanner
  * @see PropertiesBeanDefinitionReader
  */
 @Slf4j
-public class BeanDefinitionReaderTest {
-    StaticApplicationContext applicationContext = new StaticApplicationContext();
+public class BeanDefinitionReaderTest extends IOCBase {
 
     @Test
-    public void testXmlBeanDefinitionReader() {
+    public void testXmlBeanDefinitionReader() throws Exception {
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(applicationContext);
-        reader.loadBeanDefinitions("application.xml");
 
+        //combination  step 1、2、3
+//        reader.loadBeanDefinitions("application.xml");
+
+        // step:1
+        ClassPathResource classPathResource = new ClassPathResource("application.xml");
+        InputSource inputSource = new InputSource(classPathResource.getInputStream());
+        // step:2
+        DocumentLoader documentLoader = new DefaultDocumentLoader();
+        Document document = documentLoader.loadDocument(inputSource,
+                new ResourceEntityResolver(applicationContext),
+                new SimpleSaxErrorHandler(LogFactory.getLog(getClass())),
+                XmlValidationModeDetector.VALIDATION_XSD, false);
+        // step:3
+        reader.registerBeanDefinitions(document, null);
+
+        // now we can use ioc container
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.toString());
+        notNull(user, "ioc bean is null ");
+    }
+
+    @Test
+    public void testClassPathBeanDefinitionScanner() {
+        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext);
+        scanner.scan("com.gk.support.bean");
+
+        Bar bar = (Bar) applicationContext.getBean("bar");
+        notNull(bar, "ioc bean is null");
     }
 
     @Test
@@ -34,16 +69,6 @@ public class BeanDefinitionReaderTest {
         reader.loadBeanDefinitions("application.properties");
 
         User user = (User) applicationContext.getBean("user");
-        System.out.println(user.toString());
-    }
-
-    @Test
-    public void testClassPathBeanDefinitionScanner() {
-        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext);
-        scanner.scan("com.gk.support.bean");
-        applicationContext.refresh();
-
-        Bar bar = (Bar) applicationContext.getBean("bar");
-        System.out.println(bar.toString());
+        notNull(user, "ioc bean is null");
     }
 }
