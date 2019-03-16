@@ -1,9 +1,19 @@
 package com.gk;
 
+import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.support.BeanNameGenerator;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.annotation.AnnotationBeanNameGenerator;
+import org.springframework.context.support.StaticApplicationContext;
+import org.springframework.core.Constants;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,21 +44,22 @@ public class CommonTest {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IntrospectionException {
+        GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+        beanDefinition.setBeanClass(User.class);
+        BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator();
+        String beanName = beanNameGenerator.generateBeanName(beanDefinition, new StaticApplicationContext());
+        System.out.println(beanName);
 
-        CommonTest commonTest = new CommonTest();
-        commonTest.test();
-        commonTest.privateMethod();
-        commonTest.protectedMethod();
-        commonTest.finalMethod();
-        CommonTest.test(1);
+        String shortName = ClassUtils.getShortName(User.class.getSimpleName());
+        System.out.println(Introspector.decapitalize(shortName));
+        Introspector.getBeanInfo(User.class);
     }
 
     @Test
     public void testt() {
-        List<String> list = new ArrayList<>();
-        String[] strings = list.toArray(new String[Collections.emptyList().size()]);
-        Assert.notNull(strings);
+        Constants constants = new Constants(XmlBeanDefinitionReader.class);
+        constants.asNumber("123");
     }
 
 

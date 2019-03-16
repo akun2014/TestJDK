@@ -1,41 +1,47 @@
 package com.gk.spring.ioc;
 
+import com.gk.spring.IOCBase;
 import com.gk.support.bean.Bar;
 import com.gk.support.bean.Person;
 import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.annotation.ScannedGenericBeanDefinition;
+import org.springframework.util.ClassUtils;
 
+import java.beans.Introspector;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by akun on 2019/2/28.
  */
 @Slf4j
-public class ComponentScanTest {
+public class ComponentScanTest extends IOCBase {
 
     @Test
     public void testAnnotationConfigApplicationContext() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean", "com.gk.spring.ioc");
-        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("bar");
-        log.info("clazz:{}", beanDefinition.getClass().getCanonicalName()); //ScannedGenericBeanDefinition
-        log.info("{}", beanDefinition);
+        Bar bar = applicationContext.getBean(Bar.class);
+        String beanName = Introspector.decapitalize(ClassUtils.getShortName(bar.getClass()));
+        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition(beanName);
 
-        Bar bar = (Bar) applicationContext.getBean("bar");
-        System.out.println(bar.toString());
+        assertTrue(beanDefinition instanceof ScannedGenericBeanDefinition);
+        assertEquals(ConfigurableBeanFactory.SCOPE_SINGLETON, beanDefinition.getScope());
+        assertNotNull(bar);
     }
 
     @Test
     public void test() {
-        GenericApplicationContext applicationContext = new GenericApplicationContext();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(applicationContext);
         reader.loadBeanDefinitions("application-annotation.xml");
         applicationContext.refresh();
@@ -49,29 +55,26 @@ public class ComponentScanTest {
         BeanDefinition personBeanDefinition = applicationContext.getBeanFactory().getBeanDefinition("person");
         BeanDefinition configurationTestBeanDefinition = applicationContext.getBeanFactory().getBeanDefinition("configurationTest");
 
-        log.info("bar beanDefinition:{}", beanDefinition.getClass().getCanonicalName()); //ScannedGenericBeanDefinition
-        log.info("user beanDefinition:{}", userBeanDefinition.getClass().getCanonicalName()); //GenericBeanDefinition
-        log.info("person beanDefinition:{}", personBeanDefinition.getClass().getCanonicalName()); //GenericBeanDefinition
-        log.info("configurationTestBeanDefinition beanDefinition:{}", configurationTestBeanDefinition.getClass().getCanonicalName()); //GenericBeanDefinition
+        assertNotNull(bar);
+        assertNotNull(user);
+        assertNotNull(person);
 
-
-        System.out.println(bar.toString());
-        System.out.println(user.toString());
-        System.out.println(person.toString());
-
+        assertTrue(beanDefinition instanceof ScannedGenericBeanDefinition);
+        assertTrue(userBeanDefinition instanceof GenericBeanDefinition);
+        assertTrue(configurationTestBeanDefinition instanceof ScannedGenericBeanDefinition);
+        assertEquals(personBeanDefinition.getClass().getSimpleName(), "ConfigurationClassBeanDefinition");
     }
 
     @Test
     public void testClassPathBeanDefinitionScanner() throws Exception {
-        GenericApplicationContext applicationContext = new GenericApplicationContext();
         ClassPathBeanDefinitionScannerTest scanner = new ClassPathBeanDefinitionScannerTest(applicationContext);
         Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan("com.gk.support.bean");
-        Assert.assertEquals(2, beanDefinitionHolders.size());
+        assertEquals(2, beanDefinitionHolders.size());
         // refresh beanFactory
         applicationContext.refresh();
         // after refreshed application can be used.
-        Bar bean = applicationContext.getBean(Bar.class);
-        bean.bar();
+        Bar bar = applicationContext.getBean(Bar.class);
+        assertNotNull(bar);
     }
 
 
