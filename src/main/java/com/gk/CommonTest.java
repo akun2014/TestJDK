@@ -5,18 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.support.StaticApplicationContext;
-import org.springframework.core.Constants;
-import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 /**
  * Created by akun on 2018/5/10.
@@ -58,8 +54,13 @@ public class CommonTest {
 
     @Test
     public void testt() {
-        Constants constants = new Constants(XmlBeanDefinitionReader.class);
-        constants.asNumber("123");
+        LinkedList<User> list = new LinkedList<>();
+        LinkedHashMap<String, User> map = new LinkedHashMap();
+
+        list.addFirst(new User());
+        list.add(new User());
+
+        User user = list.get(0);
     }
 
 
