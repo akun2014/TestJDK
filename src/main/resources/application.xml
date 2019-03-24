@@ -3,6 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+
+    <bean id="human" class="com.gk.support.bean.Human" scope="prototype"/>
     <bean id="user" class="com.gk.support.bean.User" scope="singleton" lazy-init="true"
           autowire-candidate="true"
           primary="true" name="user2">
@@ -48,6 +50,8 @@
                 <value>monkeys_3</value>
             </array>
         </property>
+        <!--singleton bean 引用 prototype bean -->
+        <lookup-method name="getHuman" bean="human"/>
     </bean>
 
 </beans>

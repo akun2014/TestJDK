@@ -1,6 +1,7 @@
 package com.gk.support.bean;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Lookup;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,14 @@ public class PropertyBean {
     public void destroy() {
         System.out.println("destroy method invoked!");
     }
+
+//    @Lookup
+    public Human getHuman() {
+        return null;
+    }
+
+    public String description() {
+        return toString() + " human:" + getHuman().toString();
+    }
+
 }

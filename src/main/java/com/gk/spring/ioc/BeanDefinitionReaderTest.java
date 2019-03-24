@@ -52,8 +52,8 @@ public class BeanDefinitionReaderTest extends IOCBase {
 
 
         PropertyBean propertyBean = applicationContext.getBean("propertyBean", PropertyBean.class);
-        notNull(propertyBean, "bean must not be null");
-        System.out.println(propertyBean.toString());
+        notNull(propertyBean, "bean should not be null");
+        notNull(propertyBean.getUser(), "user should not be null");
 
         // now we can use ioc container
         User user = (User) applicationContext.getBean("user");
