@@ -9,13 +9,15 @@
         <property name="name" value="gk"/>
     </bean>
 
+    <!-- autowire-candidate="false" 表示该对象不参与自动注入-->
     <bean id="propertyBean" name="propertyBean2" class="com.gk.support.bean.PropertyBean"
-          init-method="init" destroy-method="destroy" lazy-init="false" autowire-candidate="true" autowire="byType">
+          init-method="init" destroy-method="destroy" lazy-init="false" autowire-candidate="false" autowire="byType">
         <description>this class is test case</description>
         <property name="name" value="pName"/>
         <property name="age" value="1"/>
         <property name="dogs">
             <list>
+                <description>list property</description>
                 <value>dogs_1</value>
                 <value>dogs_2</value>
                 <value>dogs_3</value>
@@ -24,6 +26,7 @@
         <property name="amount" value="200.0"/>
         <property name="cats">
             <set>
+                <description>set property</description>
                 <value>cats_1</value>
                 <value>cats_2</value>
                 <value>cats_3</value>
@@ -39,6 +42,7 @@
         </property>
         <property name="monkeys">
             <array>
+                <description>array property</description>
                 <value>monkeys_1</value>
                 <value>monkeys_2</value>
                 <value>monkeys_3</value>
