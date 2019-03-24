@@ -1,7 +1,7 @@
 package com.gk.support.bean;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Lookup;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,7 @@ import java.util.Set;
  * Created by akun on 2019/3/24.
  */
 @Data
+@Slf4j
 public class PropertyBean {
     private String name;
     private int age;
@@ -29,9 +30,13 @@ public class PropertyBean {
         System.out.println("destroy method invoked!");
     }
 
-//    @Lookup
+    //    @Lookup
     public Human getHuman() {
         return null;
+    }
+
+    public void replaceMethod() {
+        log.info("PropertyBean:replaceMethod invoked");
     }
 
     public String description() {

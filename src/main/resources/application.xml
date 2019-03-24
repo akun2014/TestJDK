@@ -6,9 +6,20 @@
 
     <bean id="human" class="com.gk.support.bean.Human" scope="prototype"/>
     <bean id="user" class="com.gk.support.bean.User" scope="singleton" lazy-init="true"
-          autowire-candidate="true"
-          primary="true" name="user2">
+          autowire-candidate="true" primary="true"
+          name="user2">
         <property name="name" value="gk"/>
+    </bean>
+
+    <bean id="user3" class="com.gk.support.bean.User">
+        <property name="name" value="gk3"/>
+        <property name="age" value="28"/>
+    </bean>
+
+    <bean id="user4" class="com.gk.support.bean.User">
+        <qualifier value="usergk4"/>
+        <property name="name" value="gk4"/>
+        <property name="age" value="28"/>
     </bean>
 
     <!-- autowire-candidate="false" 表示该对象不参与自动注入-->
@@ -52,6 +63,10 @@
         </property>
         <!--singleton bean 引用 prototype bean -->
         <lookup-method name="getHuman" bean="human"/>
+        <!--替换目标方法逻辑 -->
+        <replaced-method name="replaceMethod" replacer="customerReplace"/>
     </bean>
+
+    <bean id="customerReplace" class="com.gk.support.service.CustomReplacer"/>
 
 </beans>
