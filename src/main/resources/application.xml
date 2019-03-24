@@ -3,8 +3,47 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="user" class="com.gk.support.bean.User" scope="singleton" lazy-init="true" abstract="false" >
+    <bean id="user" class="com.gk.support.bean.User" scope="singleton" lazy-init="true"
+          autowire-candidate="true"
+          primary="true" name="user2">
         <property name="name" value="gk"/>
+    </bean>
+
+    <bean id="propertyBean" name="propertyBean2" class="com.gk.support.bean.PropertyBean"
+          init-method="init" destroy-method="destroy" lazy-init="false" autowire-candidate="true" autowire="byType">
+        <description>this class is test case</description>
+        <property name="name" value="pName"/>
+        <property name="age" value="1"/>
+        <property name="dogs">
+            <list>
+                <value>dogs_1</value>
+                <value>dogs_2</value>
+                <value>dogs_3</value>
+            </list>
+        </property>
+        <property name="amount" value="200.0"/>
+        <property name="cats">
+            <set>
+                <value>cats_1</value>
+                <value>cats_2</value>
+                <value>cats_3</value>
+            </set>
+        </property>
+        <property name="lions">
+            <map>
+                <description>map property</description>
+                <entry key="lions_1" value="test"/>
+                <entry key="lions_2" value="test"/>
+                <entry key="lions_3" value="test"/>
+            </map>
+        </property>
+        <property name="monkeys">
+            <array>
+                <value>monkeys_1</value>
+                <value>monkeys_2</value>
+                <value>monkeys_3</value>
+            </array>
+        </property>
     </bean>
 
 </beans>

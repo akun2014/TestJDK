@@ -2,6 +2,7 @@ package com.gk.spring.ioc;
 
 import com.gk.spring.IOCBase;
 import com.gk.support.bean.Bar;
+import com.gk.support.bean.PropertyBean;
 import com.gk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.LogFactory;
@@ -48,6 +49,11 @@ public class BeanDefinitionReaderTest extends IOCBase {
                 XmlValidationModeDetector.VALIDATION_XSD, false);
         // step:3
         reader.registerBeanDefinitions(document, null);
+
+
+        PropertyBean propertyBean = applicationContext.getBean("propertyBean", PropertyBean.class);
+        notNull(propertyBean, "bean must not be null");
+        System.out.println(propertyBean.toString());
 
         // now we can use ioc container
         User user = (User) applicationContext.getBean("user");
