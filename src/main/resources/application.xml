@@ -65,6 +65,8 @@
         <lookup-method name="getHuman" bean="human"/>
         <!--替换目标方法逻辑 -->
         <replaced-method name="replaceMethod" replacer="customerReplace"/>
+        <meta key="metaKey" value="metaValue"/>
+        <meta key="metaKey2" value="metaValue2"/>
     </bean>
 
     <bean id="customerReplace" class="com.gk.support.service.CustomReplacer"/>

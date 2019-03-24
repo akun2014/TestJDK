@@ -9,6 +9,7 @@ import java.util.Set;
 
 /**
  * Created by akun on 2019/3/24.
+ * @author akun
  */
 @Data
 @Slf4j
@@ -21,6 +22,7 @@ public class PropertyBean {
     private Map<String, Object> lions;
     private String[] monkeys;
     private User user;
+
 
     public void init() {
         System.out.println("init method invoked");
