@@ -12,7 +12,7 @@ import java.util.Stack;
  * @date 2019-03-30
  */
 @Slf4j
-public class NextGreaterElement_496 {
+public class NextGreaterElementI_496 {
 
     public int[] nextGreaterElement1(int[] nums1, int[] nums2) {
         int[] element = new int[nums1.length];
