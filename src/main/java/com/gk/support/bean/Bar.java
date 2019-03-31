@@ -1,5 +1,6 @@
 package com.gk.support.bean;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanNameAware;
@@ -12,11 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+@NoArgsConstructor
 public class Bar implements InitializingBean, BeanNameAware {
     @Autowired
     @Setter
     private Foo foo;
     private String beanName;
+
+    public Bar(Foo foo) {
+        this.foo = foo;
+    }
+
 
     @Override
     public String toString() {
