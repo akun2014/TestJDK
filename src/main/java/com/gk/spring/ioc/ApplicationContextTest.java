@@ -24,6 +24,8 @@ public class ApplicationContextTest {
 
         Bar bar = applicationContext.getBean(Bar.class);
         assertNotNull(bar);
+        long startupDate = applicationContext.getStartupDate();
+        log.info("{}", startupDate);
     }
 
     @Test
