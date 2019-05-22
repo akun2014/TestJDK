@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * Created by akun on 2019/2/26.
  */
 @Slf4j
-public class geekbangTest {
+public class GeekBangTest {
 
     private String loginUrl = "https://account.geekbang.org/account/ticket/login";
     private String productsUrl = "https://time.geekbang.org/serv/v1/my/products/all";
