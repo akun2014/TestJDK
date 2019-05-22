@@ -2,6 +2,7 @@
 /.idea/
 *.iml
 target
+/.vscode/
 
 # Created by https://www.gitignore.io/api/java
 # Edit at https://www.gitignore.io/?templates=java
@@ -32,3 +33,4 @@ target
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/java
+.factorypath

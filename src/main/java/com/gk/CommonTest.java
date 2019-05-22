@@ -8,6 +8,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.SocketUtils;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

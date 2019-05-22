@@ -11,12 +11,11 @@ public class CommonBean {
     public void test() {
         String str1 = "hello";
         String str2 = "he" + "llo";
-//        String str2 = "he" + new String("llo");
-//        String str2 = new String("he") + new String("llo");
-//        str2 = str2.intern();
+        // String str2 = "he" + new String("llo");
+        // String str2 = new String("he") + new String("llo");
+        // str2 = str2.intern();
         System.out.println(str1 == str2);
     }
-
 
     @Test
     public void charTest() throws Exception {
