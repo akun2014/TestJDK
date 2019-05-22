@@ -1,4 +1,4 @@
-package com.gk.collection.Collections;
+package com.gk.collection;
 
 import com.gk.common.entity.User;
 import org.junit.Test;

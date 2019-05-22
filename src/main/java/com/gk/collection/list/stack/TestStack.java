@@ -1,10 +1,10 @@
-package com.gk.collection.stack;
+package com.gk.collection.list.stack;
+
+import org.junit.Test;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Stack;
-
-import org.junit.Test;
 
 public class TestStack {
 
