@@ -1,6 +1,6 @@
 package com.gk.proxy.cglib;
 
-import com.gk.proxy.Car;
+import com.gk.proxy.jdk.Car;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.proxy.InterfaceMaker;
 import org.junit.Test;

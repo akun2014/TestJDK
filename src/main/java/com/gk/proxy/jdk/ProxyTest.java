@@ -1,4 +1,4 @@
-package com.gk.proxy;
+package com.gk.proxy.jdk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -11,9 +11,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-
-/*
- *JDK实现动态代理 
+/**
+ * @author akun
+ * JDK实现动态代理
  */
 @Slf4j
 public class ProxyTest {

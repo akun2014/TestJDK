@@ -1,4 +1,4 @@
-package com.gk.proxy;
+package com.gk.proxy.jdk;
 
 public interface Moveable {
     void move() throws Exception;

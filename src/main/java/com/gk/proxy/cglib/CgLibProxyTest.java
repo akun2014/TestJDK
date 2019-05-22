@@ -1,6 +1,6 @@
 package com.gk.proxy.cglib;
 
-import com.gk.proxy.Car;
+import com.gk.proxy.jdk.Car;
 import com.gk.proxy.bean.LazyBean;
 import com.gk.proxy.bean.PropertyBean;
 import lombok.extern.slf4j.Slf4j;
