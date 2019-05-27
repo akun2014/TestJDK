@@ -38,7 +38,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.gk.support.service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ownerkaka.testjdk.support.service.*.*(..))"/>
     </aop:config>
 
 </beans>

@@ -2,12 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
@@ -16,19 +13,20 @@ http://www.springframework.org/schema/aop
     <bean id="ticketServiceBeforeAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice"/>
 
     <aop:config proxy-target-class="true">
-        <aop:pointcut id="p1" expression="execution(public * com.gk.support.bean..*.append(..))"/>
-        <aop:pointcut id="p2" expression="execution(public * com.gk.support.bean..*.foo(..))"/>
+        <aop:pointcut id="p1" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
+        <aop:pointcut id="p2" expression="execution(public * com.ownerkaka.testjdk..support.bean..*.foo(..))"/>
         <aop:aspect id="id" ref="annotationAdvice">
-            <aop:before method="before" pointcut="execution(public * com.gk.support.bean..*.append(..))"/>
+            <aop:before method="before"
+                        pointcut="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
             <aop:after method="after" pointcut-ref="p1"/>
             <aop:around method="around" pointcut-ref="p1"/>
             <aop:after-returning method="afterReturning" pointcut-ref="p1"/>
             <aop:after-throwing method="afterThrowing" pointcut-ref="p2"/>
         </aop:aspect>
     </aop:config>
-    
+
     <aop:config>
-        <aop:pointcut id="p3" expression="execution(public * com.gk.support.bean..*.bar(..))"/>
+        <aop:pointcut id="p3" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.bar(..))"/>
         <aop:advisor advice-ref="ticketServiceBeforeAdvice" pointcut-ref="p3"/>
     </aop:config>
 </beans>
