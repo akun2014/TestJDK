@@ -14,7 +14,7 @@
 
     <context:property-placeholder location="application.properties"/>
 
-    <bean id="barService" class="com.gk.support.service.impl.BarServiceImpl"/>
+    <bean id="barService" class="com.ownerkaka.testjdk.support.service.impl.BarServiceImpl"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
         <property name="url" value="${spring.datasource.url}"/>

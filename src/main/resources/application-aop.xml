@@ -11,9 +11,9 @@ http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <bean id="annotationAdvice" class="com.gk.spring.aop.advice.annotation.AnnotationAdvice"/>
-    <bean id="bar" class="com.gk.support.bean.Bar"/>
-    <bean id="ticketServiceBeforeAdvice" class="com.gk.spring.aop.advice.TicketServiceBeforeAdvice"/>
+    <bean id="annotationAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice"/>
+    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar"/>
+    <bean id="ticketServiceBeforeAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice"/>
 
     <aop:config proxy-target-class="true">
         <aop:pointcut id="p1" expression="execution(public * com.gk.support.bean..*.append(..))"/>

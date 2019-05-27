@@ -4,26 +4,26 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-    <bean id="human" class="com.gk.support.bean.Human" scope="prototype"/>
-    <bean id="user" class="com.gk.support.bean.User" scope="singleton" lazy-init="true"
+    <bean id="human" class="com.ownerkaka.testjdk.support.bean.Human" scope="prototype"/>
+    <bean id="user" class="com.ownerkaka.testjdk.support.bean.User" scope="singleton" lazy-init="true"
           autowire-candidate="true" primary="true"
           name="user2">
         <property name="name" value="gk"/>
     </bean>
 
-    <bean id="user3" class="com.gk.support.bean.User">
+    <bean id="user3" class="com.ownerkaka.testjdk.support.bean.User">
         <property name="name" value="gk3"/>
         <property name="age" value="28"/>
     </bean>
 
-    <bean id="user4" class="com.gk.support.bean.User">
+    <bean id="user4" class="com.ownerkaka.testjdk.support.bean.User">
         <qualifier value="usergk4"/>
         <property name="name" value="gk4"/>
         <property name="age" value="28"/>
     </bean>
 
     <!-- autowire-candidate="false" 表示该对象不参与自动注入-->
-    <bean id="propertyBean" name="propertyBean2" class="com.gk.support.bean.PropertyBean"
+    <bean id="propertyBean" name="propertyBean2" class="com.ownerkaka.testjdk.support.bean.PropertyBean"
           init-method="init" destroy-method="destroy" lazy-init="false" autowire-candidate="false" autowire="byType">
         <description>this class is test case</description>
         <property name="name" value="pName"/>
@@ -69,6 +69,6 @@
         <meta key="metaKey2" value="metaValue2"/>
     </bean>
 
-    <bean id="customerReplace" class="com.gk.support.service.CustomReplacer"/>
+    <bean id="customerReplace" class="com.ownerkaka.testjdk.support.service.CustomReplacer"/>
 
 </beans>

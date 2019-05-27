@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-    <bean id="user" class="com.gk.support.bean.User" scope="singleton" autowire-candidate="true" lazy-init="false">
+    <bean id="user" class="com.ownerkaka.testjdk.support.bean.User" scope="singleton" autowire-candidate="true" lazy-init="false">
         <property name="name" value="gk"/>
     </bean>
 
-    <bean id="bar" class="com.gk.support.bean.Bar" autowire-candidate="true" autowire="byName" lazy-init="false"/>
+    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar" autowire-candidate="true" autowire="byName" lazy-init="false"/>
 
 </beans>
