@@ -28,6 +28,7 @@
     <properties>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
         <spring.cloud.version>Finchley.RC2</spring.cloud.version>
+        <guava.version>27.1-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -61,7 +62,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
