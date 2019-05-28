@@ -20,8 +20,8 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void test() {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/tmp");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.bean");
         ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
 
         proxyFactoryBean.setBeanFactory(applicationContext);
@@ -31,11 +31,11 @@ public class ProxyFactoryBeanTest {
 
         AspectJExpressionPointcutAdvisor aspectJExpressionPointcutAdvisor = new AspectJExpressionPointcutAdvisor();
         aspectJExpressionPointcutAdvisor.setAdvice(new TicketServiceBeforeAdvice());
-        aspectJExpressionPointcutAdvisor.setExpression("execution(public * com.gk.bean..*.bar(..))");
+        aspectJExpressionPointcutAdvisor.setExpression("execution(public * com.ownerkaka.testjdk.bean..*.bar(..))");
 
         AspectJExpressionPointcutAdvisor aspectJExpressionPointcutAdvisor1 = new AspectJExpressionPointcutAdvisor();
         aspectJExpressionPointcutAdvisor1.setAdvice(new TicketServiceAfterReturningAdvice());
-        aspectJExpressionPointcutAdvisor1.setExpression("execution(public * com.gk.bean..*.setBeanName(..))");
+        aspectJExpressionPointcutAdvisor1.setExpression("execution(public * com.ownerkaka.testjdk.bean..*.setBeanName(..))");
 
         proxyFactoryBean.addAdvisors(aspectJExpressionPointcutAdvisor, aspectJExpressionPointcutAdvisor1);
         Bar bar = (Bar) proxyFactoryBean.getObject();
@@ -45,7 +45,7 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void testByAnnotation() {
-        String[] packages = new String[]{"com.gk.bean", "com.gk.proxy.aop.advice.annotation"};
+        String[] packages = new String[]{"com.ownerkaka.testjdk.bean", "com.ownerkaka.testjdk.proxy.aop.advice.annotation"};
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(packages);
 
         Bar bean = applicationContext.getBean(Bar.class);
@@ -54,8 +54,8 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void testInterface() throws Exception {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support", "com.gk.spring.aop.advice");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/tmp");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support", "com.ownerkaka.testjdk.spring.aop.advice");
         ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
         proxyFactoryBean.setBeanFactory(applicationContext);
 
@@ -70,8 +70,8 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void testApp() throws Exception {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.service", "com.gk.spring.aop.advice.annotation");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/tmp");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.service", "com.ownerkaka.testjdk.spring.aop.advice.annotation");
 
         BarService barService = applicationContext.getBean(BarService.class);
         barService.bar("test");

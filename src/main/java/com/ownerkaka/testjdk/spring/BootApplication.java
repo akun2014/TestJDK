@@ -11,7 +11,7 @@ import org.springframework.retry.annotation.EnableRetry;
  * @since 2019-05-27
  */
 @Slf4j
-@EnableRetry
+@EnableRetry(proxyTargetClass = true)
 @SpringBootApplication(scanBasePackageClasses = RetryService.class)
 public class BootApplication {
 

@@ -17,7 +17,7 @@ public class JITTest {
      * num     #instances         #bytes  class name
      * ----------------------------------------------
      * 1:          2589       70277240  [I
-     * 2:       1000000       16000000  com.gk.jvm.jit.JITTest$User
+     * 2:       1000000       16000000  com.ownerkaka.testjdk.jvm.jit.JITTest$User
      * 3:         42662       12138200  [B
      * 4:         53556        6411000  [C
      * 5:         23433         562392  java.lang.String
@@ -34,7 +34,7 @@ public class JITTest {
      * 1:          2589       84763544  [I
      * 2:         42662       12138200  [B
      * 3:         53556        6411208  [C
-     * 4:         94590        1513440  com.gk.jvm.jit.JITTest$User
+     * 4:         94590        1513440  com.ownerkaka.testjdk.jvm.jit.JITTest$User
      * 5:         23432         562368  java.lang.String
      * 6:          4185         294504  [Ljava.lang.Object;
      * 7:          1633         184600  java.lang.Class

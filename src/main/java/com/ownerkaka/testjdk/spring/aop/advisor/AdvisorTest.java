@@ -64,7 +64,7 @@ public class AdvisorTest {
 
     @Test
     public void testDefaultBeanFactoryPointcutAdvisor() throws NoSuchMethodException {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.bean");
         DefaultBeanFactoryPointcutAdvisor advisor = new DefaultBeanFactoryPointcutAdvisor();
 
         advisor.setPointcut(new NameMatchMethodPointcut());

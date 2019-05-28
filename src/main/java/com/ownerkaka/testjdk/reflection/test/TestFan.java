@@ -6,8 +6,8 @@ public class TestFan {
 
 	public static void main(String[] args) throws Throwable, Exception, Exception {
 
-		String name ="com.gk.service.Add";
-		//String name ="com.gk.service.Add";
+		String name ="com.ownerkaka.testjdk.service.Add";
+		//String name ="com.ownerkaka.testjdk.service.Add";
 		test(name);
 	}
 	//通过反射机制，在运行时选择执行哪个类

@@ -43,7 +43,7 @@ public class CustomerClassLoader extends URLClassLoader {
         String simpleName2 = CommonBean.class.getClassLoader().getClass().getCanonicalName();
         Assert.assertEquals("load by AppClassLoader", "sun.misc.Launcher.AppClassLoader", simpleName2);
         String simpleName3 = aClass.getClassLoader().getClass().getCanonicalName();
-        Assert.assertEquals("load by CustomerClassLoader", "com.gk.classload.CustomerClassLoader", simpleName3);
+        Assert.assertEquals("load by CustomerClassLoader", "com.ownerkaka.testjdk.classload.CustomerClassLoader", simpleName3);
 
         boolean instance = aClass.isInstance(CommonBean.class);
         Assert.assertFalse(instance);

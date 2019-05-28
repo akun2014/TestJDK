@@ -63,7 +63,7 @@ public class BeanDefinitionReaderTest extends IOCBase {
     @Test
     public void testClassPathBeanDefinitionScanner() {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext);
-        scanner.scan("com.gk.support.bean");
+        scanner.scan("com.ownerkaka.testjdk.support.bean");
 
         Bar bar = (Bar) applicationContext.getBean("bar");
         notNull(bar, "ioc bean is null");

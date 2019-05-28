@@ -31,7 +31,7 @@ public class ApplicationContextTest {
     @Test
     public void testAnnotationConfigApplicationContext() throws Exception {
         AnnotationConfigApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext("com.gk.support");
+                new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support");
         Bar bar = applicationContext.getBean(Bar.class);
         assertNotNull(bar);
     }

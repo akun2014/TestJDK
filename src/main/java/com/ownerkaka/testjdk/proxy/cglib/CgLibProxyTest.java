@@ -81,7 +81,7 @@ public class CgLibProxyTest {
 
     @Test
     public void proxyTest() {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/tmp");
         Car proxyCar = proxy(new Car());
         proxyCar.move();
         proxyCar.speedUp(2);

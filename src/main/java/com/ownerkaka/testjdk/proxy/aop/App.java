@@ -15,7 +15,7 @@ import org.springframework.aop.framework.ProxyFactoryBean;
  */
 public class App {
     public static void main(String[] args) {
-//        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/boyu/IdeaProjects/TestJDK");
+//        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/tmp");
         //1.针对不同的时期类型，提供不同的Advice
         Advice beforeAdvice = new TicketServiceBeforeAdvice();
         Advice afterReturningAdvice = new TicketServiceAfterReturningAdvice();

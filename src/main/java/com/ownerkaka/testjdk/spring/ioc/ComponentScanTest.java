@@ -30,7 +30,7 @@ public class ComponentScanTest extends IOCBase {
 
     @Test
     public void testAnnotationConfigApplicationContext() {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean", "com.gk.spring.ioc");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.bean", "com.ownerkaka.testjdk.spring.ioc");
         Bar bar = applicationContext.getBean(Bar.class);
         String beanName = Introspector.decapitalize(ClassUtils.getShortName(bar.getClass()));
         BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition(beanName);
@@ -68,7 +68,7 @@ public class ComponentScanTest extends IOCBase {
     @Test
     public void testClassPathBeanDefinitionScanner() throws Exception {
         ClassPathBeanDefinitionScannerTest scanner = new ClassPathBeanDefinitionScannerTest(applicationContext);
-        Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan("com.gk.support.bean");
+        Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan("com.ownerkaka.testjdk.support.bean");
         assertEquals(2, beanDefinitionHolders.size());
         // refresh beanFactory
         applicationContext.refresh();

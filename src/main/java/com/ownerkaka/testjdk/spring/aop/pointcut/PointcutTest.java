@@ -31,7 +31,7 @@ public class PointcutTest {
 
     @Before
     public void init() {
-        applicationContext = new AnnotationConfigApplicationContext("com.gk.support.bean");
+        applicationContext = new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.bean");
     }
 
     /**

@@ -17,7 +17,7 @@ public class FileSystemClassLoader extends ClassLoader {
         if (classData == null) {
             throw new ClassNotFoundException();
         } else {
-            name = "com.gk.support.bean.User";
+            name = "com.ownerkaka.testjdk.support.bean.User";
             return defineClass(name, classData, 0, classData.length);
         }
     }
