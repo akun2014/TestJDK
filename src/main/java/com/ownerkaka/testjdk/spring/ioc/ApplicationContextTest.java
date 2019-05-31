@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 public class ApplicationContextTest {
 
     @Test
-    public void testGenericXmlApplicationContext() throws Exception {
+    public void testGenericXmlApplicationContext() {
         GenericXmlApplicationContext applicationContext =
                 new GenericXmlApplicationContext("application-test.xml");
 
@@ -29,10 +30,17 @@ public class ApplicationContextTest {
     }
 
     @Test
-    public void testAnnotationConfigApplicationContext() throws Exception {
+    public void testAnnotationConfigApplicationContext() {
         AnnotationConfigApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support");
         Bar bar = applicationContext.getBean(Bar.class);
+        assertNotNull(bar);
+    }
+
+    @Test
+    public void testClassPathXmlApplicationContext() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-test.xml");
+        Bar bar = applicationContext.getBean("bar", Bar.class);
         assertNotNull(bar);
     }
 
