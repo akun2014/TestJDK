@@ -1,12 +1,15 @@
 package com.ownerkaka.testjdk.spring.ioc;
 
 import com.ownerkaka.testjdk.support.bean.Bar;
+import com.ownerkaka.testjdk.support.bean.Foo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
@@ -42,6 +45,22 @@ public class ApplicationContextTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-test.xml");
         Bar bar = applicationContext.getBean("bar", Bar.class);
         assertNotNull(bar);
+
+        Foo foo = new Foo();
+        applicationContext.getBeanFactory().registerSingleton("foo", foo);
+        Foo contextBean = applicationContext.getBean("foo", Foo.class);
+        assertNotNull(contextBean);
+    }
+
+    @Test
+    public void testCustomerInstance() {
+        GenericApplicationContext applicationContext = new GenericApplicationContext();
+        ConfigurableListableBeanFactory beanFactory = applicationContext.getBeanFactory();
+        Foo foo = new Foo();
+        beanFactory.registerSingleton("foo", foo);
+        applicationContext.refresh();
+        Foo contextBean = applicationContext.getBean("foo", Foo.class);
+        assertNotNull(contextBean);
     }
 
     @Test

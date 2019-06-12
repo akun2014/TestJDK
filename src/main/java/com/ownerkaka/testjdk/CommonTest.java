@@ -3,10 +3,13 @@ package com.ownerkaka.testjdk;
 import com.ownerkaka.testjdk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.support.StaticApplicationContext;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 import java.beans.IntrospectionException;
@@ -61,6 +64,17 @@ public class CommonTest {
         list.add(new User());
 
         User user = list.get(0);
+
+
+        addSingletonFactory("", (ObjectFactory<User>) () -> {
+            User user1 = new User();
+            user1.setAge(21);
+            return user1;
+        });
+    }
+
+    protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFactory) {
+
     }
 
 

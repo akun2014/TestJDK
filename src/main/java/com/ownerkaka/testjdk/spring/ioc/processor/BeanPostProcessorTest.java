@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 /**
  * Created by akun on 2019/2/28.
  * 在applicationContext容器支持排序
+ * <p>
+ * 拓展点实现
+ * 1、回调Aware接口
+ * 2、实现AOP（事务管理）
  */
 @Slf4j
 @Component

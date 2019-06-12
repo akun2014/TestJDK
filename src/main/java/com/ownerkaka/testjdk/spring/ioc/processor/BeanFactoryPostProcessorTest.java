@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 /**
  * Created by akun on 2019/3/2.
  * 在applicationContext容器支持排序
+ *
+ * 拓展点
+ * <br>
+ * placeholder处理的
  */
 @Slf4j
 @Component

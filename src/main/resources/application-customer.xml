@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
 
 
     <bean id="human" class="com.ownerkaka.testjdk.support.bean.Human" scope="prototype"/>
     <bean id="user" class="com.ownerkaka.testjdk.support.bean.User" scope="singleton" lazy-init="true"
           autowire-candidate="true" primary="true"
-          name="user2">
+          name="user2" p:age="18">
         <property name="name" value="gk"/>
     </bean>
 
@@ -21,6 +23,7 @@
         <qualifier value="usergk4"/>
         <property name="name" value="gk4"/>
         <property name="age" value="28"/>
+
     </bean>
 
     <!-- autowire-candidate="false" 表示该对象不参与自动注入-->

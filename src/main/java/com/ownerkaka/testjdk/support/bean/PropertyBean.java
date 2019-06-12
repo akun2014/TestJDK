@@ -32,7 +32,7 @@ public class PropertyBean {
         System.out.println("destroy method invoked!");
     }
 
-    //    @Lookup
+    //        @Lookup
     public Human getHuman() {
         return null;
     }
