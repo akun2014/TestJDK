@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.set;
+package com.ownerkaka.testjdk.collection.set;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

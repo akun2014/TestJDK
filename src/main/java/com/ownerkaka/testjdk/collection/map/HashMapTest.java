@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.map;
+package com.ownerkaka.testjdk.collection.map;
 
 import org.junit.Test;
 
