@@ -3,13 +3,15 @@ package com.ownerkaka.testjdk.spring.ioc;
 import com.ownerkaka.testjdk.spring.IOCBase;
 import com.ownerkaka.testjdk.support.bean.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.ChildBeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ScannedGenericBeanDefinition;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.springframework.util.Assert.notNull;
@@ -20,7 +22,8 @@ import static org.springframework.util.Assert.notNull;
  * @see RootBeanDefinition
  * @see ChildBeanDefinition
  * @see GenericBeanDefinition
- * @see AnnotatedGenericBeanDefinition
+ * @see ConfigurationClassBeanDefinition
+ * @see ScannedGenericBeanDefinition
  */
 @Slf4j
 public class BeanDefinitionTest extends IOCBase {
@@ -63,31 +66,16 @@ public class BeanDefinitionTest extends IOCBase {
     }
 
     /**
-     * 使用 xml 加载的 bean 也是由 GenericBeanDefinition 来创建
+     * 使用xml加载的bean会解析为 GenericBeanDefinition
      */
     @Test
     public void testGenericBeanDefinition2() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanDefinition.xml");
+        ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("application-customer.xml");
 
-        User user = (User) applicationContext.getBean("user");
-        notNull(user, "bean may not be null");
-
-        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("item");
-    }
-
-    /**
-     * 以 @Configuration 注解标记的会解析为 AnnotatedGenericBeanDefinition
-     */
-    @Test
-    public void testAnnotatedGenericBeanDefinition() {
-        AnnotatedGenericBeanDefinition beanDefinition = new AnnotatedGenericBeanDefinition(User.class);
-
-        beanDefinition.getPropertyValues().addPropertyValue("name", "gk");
-        applicationContext.registerBeanDefinition("user", beanDefinition);
-
-        applicationContext.refresh();
-        User user = (User) applicationContext.getBean("user");
-        notNull(user, "bean may not be null");
+        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("user");
+        boolean equals = beanDefinition.getClass().equals(GenericBeanDefinition.class);
+        Assert.assertTrue(equals);
 
     }
 
@@ -96,16 +84,26 @@ public class BeanDefinitionTest extends IOCBase {
      */
     @Test
     public void testConfigurationClassBeanDefinition() {
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.service");
+
+        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("human");
+        boolean equals = beanDefinition.getClass().getSimpleName().equals("ConfigurationClassBeanDefinition");
+        Assert.assertTrue(equals);
 
     }
 
     /**
-     * 以 @Component 注解标记的会解析为 ScannedGenericBeanDefinition
+     * 以 @Component @Configuration 注解标记的会解析为 ScannedGenericBeanDefinition
      */
     @Test
     public void testScannedGenericBeanDefinition() {
-//        ScannedGenericBeanDefinition beanDefinition = new ScannedGenericBeanDefinition(new SimpleMetadataReader());
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext("com.ownerkaka.testjdk.support.service");
 
+        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("customConfigService");
+        boolean equals = beanDefinition.getClass().equals(ScannedGenericBeanDefinition.class);
+        Assert.assertTrue(equals);
     }
 
     @Test
@@ -114,6 +112,8 @@ public class BeanDefinitionTest extends IOCBase {
         BeanDefinitionBuilder definitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(User.class);
         definitionBuilder.setScope(BeanDefinition.SCOPE_PROTOTYPE);
         definitionBuilder.addPropertyReference("name", "gk");
+        definitionBuilder.setAbstract(false);
+        definitionBuilder.setLazyInit(false);
 
         RootBeanDefinition rbd = (RootBeanDefinition) definitionBuilder.getBeanDefinition();
 
