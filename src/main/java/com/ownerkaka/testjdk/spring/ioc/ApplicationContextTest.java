@@ -24,7 +24,7 @@ public class ApplicationContextTest {
     @Test
     public void testGenericXmlApplicationContext() {
         GenericXmlApplicationContext applicationContext =
-                new GenericXmlApplicationContext("application-test.xml");
+                new GenericXmlApplicationContext("application-customer.xml");
 
         Bar bar = applicationContext.getBean(Bar.class);
         assertNotNull(bar);

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * Created by akun on 2019/3/4.
@@ -28,5 +29,11 @@ public class AopTest {
         Bar bar = applicationContext.getBean(Bar.class);
         String aoptest = bar.append("aoptest");
         log.info("{}", aoptest);
+    }
+
+    @Test
+    public void testLookUpMethod() {
+        Bar bar = applicationContext.getBean("bar", Bar.class);
+        Assert.notNull(bar.getHuman(), "human not null");
     }
 }

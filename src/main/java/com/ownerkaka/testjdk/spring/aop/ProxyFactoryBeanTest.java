@@ -2,7 +2,11 @@ package com.ownerkaka.testjdk.spring.aop;
 
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAfterReturningAdvice;
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice;
+import com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice;
+import com.ownerkaka.testjdk.spring.ioc.processor.BeanFactoryPostProcessorTest;
+import com.ownerkaka.testjdk.spring.ioc.processor.BeanPostProcessorTest;
 import com.ownerkaka.testjdk.support.bean.Bar;
+import com.ownerkaka.testjdk.support.bean.Foo;
 import com.ownerkaka.testjdk.support.service.BarService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -45,8 +49,9 @@ public class ProxyFactoryBeanTest {
 
     @Test
     public void testByAnnotation() {
-        String[] packages = new String[]{"com.ownerkaka.testjdk.bean", "com.ownerkaka.testjdk.proxy.aop.advice.annotation"};
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(packages);
+        Class[] clz = new Class[]{BeanFactoryPostProcessorTest.class, BeanPostProcessorTest.class,
+                Bar.class, AnnotationAdvice.class, Foo.class};
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(clz);
 
         Bar bean = applicationContext.getBean(Bar.class);
         bean.bar();

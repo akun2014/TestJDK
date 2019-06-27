@@ -26,30 +26,28 @@ public class AnnotationAdvice {
 
     @Before("p1()")
     public void before(JoinPoint joinPoint) {
-        log.info("args:{}", Arrays.toString(joinPoint.getArgs()));
-        log.info("before method invoke");
+        log.info("before method invoke. args:{}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @After("p1()")
     public void after(JoinPoint joinPoint) {
-        log.info("after method invoke");
+        log.info("after method invoke. args:{}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @AfterReturning("p1()")
     public void afterReturning(JoinPoint joinPoint) {
-        log.info("afterReturning method invoke");
+        log.info("afterReturning method invoke. args:{}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @AfterThrowing("p1()")
     public void afterThrowing(JoinPoint joinPoint) {
-        log.info("afterThrowing method invoke");
+        log.info("afterThrowing method invoke. args:{}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @Around("p1()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object[] args = point.getArgs();
-        log.info("args:{}", Arrays.toString(args));
-        log.info("around method invoke do");
+        log.info("around method invoke do. args:{}", Arrays.toString(args));
         Object result = point.proceed();
         log.info("around method invoke done. result:{}", result);
         return "around:" + result;

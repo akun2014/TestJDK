@@ -1,17 +1,20 @@
 package com.ownerkaka.testjdk.spring.aop.advisor;
 
-import com.ownerkaka.testjdk.support.bean.Bar;
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAfterReturningAdvice;
+import com.ownerkaka.testjdk.support.bean.Bar;
 import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.aop.Advice;
-import org.junit.After;
 import org.junit.Test;
-import org.springframework.aop.Pointcut;
+import org.springframework.aop.aspectj.AspectJAfterAdvice;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
+import org.springframework.aop.aspectj.AspectJPointcutAdvisor;
 import org.springframework.aop.support.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by akun on 2019/3/3.
@@ -19,10 +22,7 @@ import java.lang.reflect.Method;
 @Slf4j
 public class AdvisorTest {
 
-    private final String expression = "execution( * sellTicket(..))";
-
-    private Pointcut pointcut;
-    private Advice advice;
+    private final String expression = "execution( * bar(..))";
 
     @Test
     public void testRegexpMethodPointcutAdvisor() {
@@ -30,9 +30,8 @@ public class AdvisorTest {
         advisor.setPattern("test");
         advisor.setAdvice(new TicketServiceAfterReturningAdvice());
 
-        pointcut = advisor.getPointcut(); //org.springframework.aop.support.JdkRegexpMethodPointcut
-        advice = advisor.getAdvice();
-
+        assertTrue(advisor.getPointcut() instanceof JdkRegexpMethodPointcut);
+        assertTrue(advisor.getAdvice() instanceof TicketServiceAfterReturningAdvice);
     }
 
     @Test
@@ -41,8 +40,15 @@ public class AdvisorTest {
         advisor.setExpression(expression);
         advisor.setAdvice(new TicketServiceAfterReturningAdvice());
 
-        pointcut = advisor.getPointcut();//org.springframework.aop.aspectj.AspectJExpressionPointcut
-        advice = advisor.getAdvice();
+        assertTrue(advisor.getPointcut() instanceof AspectJExpressionPointcut);
+        assertTrue(advisor.getAdvice() instanceof TicketServiceAfterReturningAdvice);
+    }
+
+    @Test
+    public void testAspectJPointcutAdvisor() {
+        AspectJAfterAdvice afterAdvice = new AspectJAfterAdvice(null, null, null);
+        AspectJPointcutAdvisor advisor = new AspectJPointcutAdvisor(afterAdvice);
+        log.info("{}", advisor.getPointcut().getClassFilter());
     }
 
     @Test
@@ -50,16 +56,17 @@ public class AdvisorTest {
         NameMatchMethodPointcutAdvisor advisor = new NameMatchMethodPointcutAdvisor();
         advisor.setAdvice(new TicketServiceAfterReturningAdvice());
 
-        pointcut = advisor.getPointcut();//org.springframework.aop.support.NameMatchMethodPointcut
-        advice = advisor.getAdvice();
+        assertTrue(advisor.getPointcut() instanceof NameMatchMethodPointcut);
+        assertTrue(advisor.getAdvice() instanceof TicketServiceAfterReturningAdvice);
     }
 
     @Test
     public void testDefaultPointAdvisor() {
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setAdvice(new TicketServiceAfterReturningAdvice());
 
-        pointcut = advisor.getPointcut();
-        advice = advisor.getAdvice();
+        assertEquals(advisor.getPointcut().getClassFilter().getClass().getSimpleName(), "TrueClassFilter");
+        assertTrue(advisor.getAdvice() instanceof TicketServiceAfterReturningAdvice);
     }
 
     @Test
@@ -72,15 +79,11 @@ public class AdvisorTest {
         advisor.setBeanFactory(applicationContext);
         advisor.setAdviceBeanName("bar");
 
-        pointcut = advisor.getPointcut();
-        advice = advisor.getAdvice();
+        assertTrue(advisor.getPointcut() instanceof NameMatchMethodPointcut);
+        assertTrue(advisor.getAdvice() instanceof TicketServiceAfterReturningAdvice);
 
         Method method = Bar.class.getMethod("afterPropertiesSet");
-        pointcut.getMethodMatcher().matches(method, Bar.class);
-    }
-
-    @After
-    public void after() {
-        log.info("pointcut:{} advice:{}", pointcut.getClass().getCanonicalName(), advice.getClass().getCanonicalName());
+        advisor.getPointcut().getMethodMatcher().matches(method, Bar.class);
+        advisor.getPointcut().getClassFilter().matches(Bar.class);
     }
 }
