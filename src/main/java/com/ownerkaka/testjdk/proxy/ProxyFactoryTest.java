@@ -1,9 +1,8 @@
 package com.ownerkaka.testjdk.proxy;
 
-import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAfterReturningAdvice;
-import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAroundAdvice;
-import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice;
-import com.ownerkaka.testjdk.support.bean.Bar;
+import com.ownerkaka.testjdk.proxy.jdk.Car;
+import com.ownerkaka.testjdk.proxy.jdk.Moveable;
+import com.ownerkaka.testjdk.spring.aop.advice.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
@@ -22,18 +21,40 @@ public class ProxyFactoryTest {
      * AOP proxies in code.
      */
     @Test
-    public void test() {
+    public void test() throws Exception {
+        // create proxy factory
         ProxyFactory proxyFactory = new ProxyFactory();
-        proxyFactory.setTarget(new Bar());
+        proxyFactory.setTarget(new Car());
+        proxyFactory.setProxyTargetClass(false);
+        proxyFactory.setExposeProxy(false);
+//        proxyFactory.setInterfaces(Moveable.class);
+        proxyFactory.setOptimize(false);
 
-        //customer set advisor
+        //around advisor
+        NameMatchMethodPointcutAdvisor aroundAdvisor = new NameMatchMethodPointcutAdvisor();
+        aroundAdvisor.setAdvice(new TicketServiceAroundAdvice());
+        aroundAdvisor.setMappedName("move");
+
+        //after returning advisor
+        DefaultPointcutAdvisor afterReturningAdvisor = new DefaultPointcutAdvisor();
+        afterReturningAdvisor.setAdvice(new TicketServiceAfterReturningAdvice());
+
+        //throw advisor
+        NameMatchMethodPointcutAdvisor throwAdvisor = new NameMatchMethodPointcutAdvisor();
+        throwAdvisor.setAdvice(new TicketServiceAfterThrowingAdvice());
+        throwAdvisor.setMappedName("move");
+
+        //set to proxy factory
         proxyFactory.addAdvice(new TicketServiceBeforeAdvice());
-        proxyFactory.addAdvisor(new DefaultPointcutAdvisor(new TicketServiceAfterReturningAdvice()));
-        proxyFactory.addAdvisor(new NameMatchMethodPointcutAdvisor(new TicketServiceAroundAdvice()));
+        proxyFactory.addAdvice(new TicketServiceAfterAdvice());
+        proxyFactory.addAdvisor(aroundAdvisor);
+        proxyFactory.addAdvisor(afterReturningAdvisor);
+        proxyFactory.addAdvisor(throwAdvisor);
 
         System.out.println(proxyFactory.toProxyConfigString());
 
-        Bar bar = (Bar) proxyFactory.getProxy();
-        bar.bar();
+        //get proxy
+        Moveable moveable = (Moveable) proxyFactory.getProxy();
+        moveable.move();
     }
 }

@@ -1,9 +1,9 @@
 package com.ownerkaka.testjdk.proxy.aop;
 
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAfterReturningAdvice;
+import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAfterThrowingAdvice;
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceAroundAdvice;
 import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice;
-import com.ownerkaka.testjdk.spring.aop.advice.TicketServiceThrowsAdvice;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.framework.ProxyFactoryBean;
 
@@ -20,7 +20,7 @@ public class App {
         Advice beforeAdvice = new TicketServiceBeforeAdvice();
         Advice afterReturningAdvice = new TicketServiceAfterReturningAdvice();
         Advice aroundAdvice = new TicketServiceAroundAdvice();
-        Advice throwsAdvice = new TicketServiceThrowsAdvice();
+        Advice throwsAdvice = new TicketServiceAfterThrowingAdvice();
 
         RailwayStation railwayStation = new RailwayStation();
 
