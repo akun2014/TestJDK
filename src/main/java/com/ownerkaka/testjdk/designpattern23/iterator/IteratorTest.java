@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.designpattern23.iterator.pattren;
+package com.ownerkaka.testjdk.designpattern23.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

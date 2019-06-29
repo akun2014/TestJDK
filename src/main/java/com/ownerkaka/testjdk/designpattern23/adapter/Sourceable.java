@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.designpattern23.adapter.pattren;
+package com.ownerkaka.testjdk.designpattern23.adapter;
 
 public interface Sourceable {
 

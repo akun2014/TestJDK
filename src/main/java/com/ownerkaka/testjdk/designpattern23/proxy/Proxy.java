@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.designpattern23.proxy.pattren;
+package com.ownerkaka.testjdk.designpattern23.proxy;
 
 import com.ownerkaka.testjdk.designpattern23.factory.generoal.MailSender;
 import com.ownerkaka.testjdk.designpattern23.factory.generoal.Sender;

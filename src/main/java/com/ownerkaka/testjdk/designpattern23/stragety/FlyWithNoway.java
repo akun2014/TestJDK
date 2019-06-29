@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.designpattern23.stragety.pattren;
+package com.ownerkaka.testjdk.designpattern23.stragety;
 
 public class FlyWithNoway implements FlyingBehavior {
 

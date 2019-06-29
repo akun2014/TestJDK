@@ -1,7 +1,7 @@
 package com.ownerkaka.testjdk.designpattern23.factory.test;
 
-import com.ownerkaka.testjdk.designpattern23.adapter.pattren.ObjectAdapter;
-import com.ownerkaka.testjdk.designpattern23.adapter.pattren.Source;
+import com.ownerkaka.testjdk.designpattern23.adapter.ObjectAdapter;
+import com.ownerkaka.testjdk.designpattern23.adapter.Source;
 
 public class ObjectFactoryTest {
 

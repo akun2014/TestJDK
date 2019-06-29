@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.designpattern23.adapter.pattren;
+package com.ownerkaka.testjdk.designpattern23.adapter;
 
 public class Source {
 	public void method1(){

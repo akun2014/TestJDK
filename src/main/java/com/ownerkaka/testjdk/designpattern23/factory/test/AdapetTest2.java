@@ -1,7 +1,7 @@
 package com.ownerkaka.testjdk.designpattern23.factory.test;
 
-import com.ownerkaka.testjdk.designpattern23.adapter.pattren.SourceSub;
-import com.ownerkaka.testjdk.designpattern23.adapter.pattren.Sourceable;
+import com.ownerkaka.testjdk.designpattern23.adapter.SourceSub;
+import com.ownerkaka.testjdk.designpattern23.adapter.Sourceable;
 
 public class AdapetTest2 {
 
