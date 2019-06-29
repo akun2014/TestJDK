@@ -2,6 +2,7 @@ package com.ownerkaka.testjdk.spring.aop;
 
 import com.ownerkaka.testjdk.support.bean.Bar;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.cglib.core.DebuggingClassWriter;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -18,6 +19,7 @@ public class AopTest {
 
     @Before
     public void init() {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "./");
         applicationContext = new GenericApplicationContext();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(applicationContext);
         reader.loadBeanDefinitions("application-aop.xml");
