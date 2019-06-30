@@ -16,7 +16,7 @@
     <bean id="ticketServiceBeforeAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice"/>
     <bean class="com.ownerkaka.testjdk.spring.ioc.processor.BeanFactoryPostProcessorTest"/>
 
-    <aop:config proxy-target-class="true" expose-proxy="true">
+    <aop:config proxy-target-class="false" expose-proxy="false">
         <aop:pointcut id="p1" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
         <aop:pointcut id="p2" expression="execution(public * com.ownerkaka.testjdk..support.bean..*.foo(..))"/>
         <aop:aspect id="aspect1" ref="annotationAdvice" order="0">
