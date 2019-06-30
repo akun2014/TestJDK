@@ -12,7 +12,6 @@
     <bean id="human" class="com.ownerkaka.testjdk.support.bean.Human"/>
     <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar">
         <lookup-method name="getHuman" bean="human"/>
-        <!--<aop:scoped-proxy proxy-target-class="false"/>-->
     </bean>
     <bean id="ticketServiceBeforeAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice"/>
     <bean class="com.ownerkaka.testjdk.spring.ioc.processor.BeanFactoryPostProcessorTest"/>
@@ -20,7 +19,7 @@
     <aop:config proxy-target-class="true" expose-proxy="true">
         <aop:pointcut id="p1" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
         <aop:pointcut id="p2" expression="execution(public * com.ownerkaka.testjdk..support.bean..*.foo(..))"/>
-        <aop:aspect id="aspect1" ref="annotationAdvice">
+        <aop:aspect id="aspect1" ref="annotationAdvice" order="0">
             <aop:pointcut id="p3" expression="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice.p1()"/>
             <aop:before method="before"
                         pointcut="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
@@ -36,9 +35,10 @@
 
     <!--Enables the use of the @AspectJ style of Spring AOP-->
     <!--<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>-->
+    <!--<aop:scoped-proxy proxy-target-class="false"/>-->
 
     <aop:config>
-        <aop:pointcut id="p3" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.bar(..))"/>
+        <aop:pointcut id="p4" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.bar(..))"/>
         <aop:advisor advice-ref="ticketServiceBeforeAdvice" pointcut-ref="p3"/>
     </aop:config>
 </beans>
