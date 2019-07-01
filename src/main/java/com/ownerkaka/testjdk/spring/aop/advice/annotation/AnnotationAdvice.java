@@ -15,7 +15,7 @@ import java.util.Arrays;
 @Slf4j
 @Aspect
 @Component
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableAspectJAutoProxy
 public class AnnotationAdvice {
 
 

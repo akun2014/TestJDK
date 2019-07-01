@@ -26,7 +26,7 @@ public class Car implements Moveable {
         } catch (InterruptedException e) {
             //ignore
         }
-        log.info("汽车行驶中");
+        log.info("invoke car move method. {}", "汽车行驶中");
     }
 
     @Override
