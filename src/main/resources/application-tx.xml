@@ -37,10 +37,12 @@
         </tx:attributes>
     </tx:advice>
 
-    <tx:annotation-driven proxy-target-class="true" mode="aspectj" transaction-manager="transactionManager"/>
+    <tx:annotation-driven proxy-target-class="true" mode="proxy" transaction-manager="transactionManager"/>
 
     <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ownerkaka.testjdk.support.service.*.*(..))"/>
     </aop:config>
+
+    <import resource="application-common.xml"/>
 
 </beans>
