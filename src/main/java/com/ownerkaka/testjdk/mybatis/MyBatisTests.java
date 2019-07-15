@@ -1,5 +1,6 @@
 package com.ownerkaka.testjdk.mybatis;
 
+import com.alibaba.druid.pool.DruidPooledConnection;
 import com.ownerkaka.testjdk.mybatis.domain.User;
 import com.ownerkaka.testjdk.mybatis.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.*;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +53,15 @@ public class MyBatisTests {
     @Test
     public void testConnection() throws Exception {
         Connection connection = sqlSession.getConnection();
-        Assert.assertTrue(Proxy.isProxyClass(connection.getClass()));
+        String id = sqlSession.getConfiguration().getEnvironment().getId();
+        TransactionFactory transactionFactory = sqlSessionFactory.getConfiguration().getEnvironment().getTransactionFactory();
+        if ("prod".equals(id)) {
+            Assert.assertTrue(connection instanceof DruidPooledConnection);
+            Assert.assertTrue(transactionFactory instanceof SpringManagedTransactionFactory);
+        } else {
+            Assert.assertTrue(transactionFactory instanceof JdbcTransactionFactory);
+            Assert.assertTrue(Proxy.isProxyClass(connection.getClass()));
+        }
         Assert.assertFalse(connection.isClosed());
     }
 
@@ -63,7 +75,7 @@ public class MyBatisTests {
     public void testUser() {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User user = userMapper.getById(1);
-        log.info(user.toString());
+        Assert.assertEquals(1L, user.getUid().longValue());
     }
 
     @Test

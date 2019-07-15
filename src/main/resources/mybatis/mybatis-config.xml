@@ -28,8 +28,11 @@
     </settings>
 
     <typeAliases>
+        <typeAlias alias="DRUID" type="com.ownerkaka.testjdk.mybatis.DruidDataSourceFactory"/>
+        <typeAlias alias="spring-tx" type="org.mybatis.spring.transaction.SpringManagedTransactionFactory"/>
         <package name="com.ownerkaka.testjdk.mybatis.domain"/>
     </typeAliases>
+
     <typeHandlers>
         <package name="com.ownerkaka.testjdk.mybatis.typehandler"/>
     </typeHandlers>
@@ -41,7 +44,7 @@
         </plugin>
     </plugins>
 
-    <environments default="dev">
+    <environments default="prod">
         <environment id="test">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -58,6 +61,15 @@
                 <property name="url" value="${spring.datasource.url}"/>
                 <property name="username" value="${spring.datasource.username}"/>
                 <property name="password" value="${spring.datasource.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="prod">
+            <transactionManager type="spring-tx"/>
+            <dataSource type="DRUID">
+                <property name="druid.driver" value="${driver}"/>
+                <property name="druid.url" value="${spring.datasource.url}"/>
+                <property name="druid.username" value="${spring.datasource.username}"/>
+                <property name="druid.password" value="${spring.datasource.password}"/>
             </dataSource>
         </environment>
     </environments>

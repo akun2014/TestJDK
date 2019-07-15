@@ -16,22 +16,27 @@ import java.sql.SQLException;
 @Slf4j
 public class MyTypeHandler extends BaseTypeHandler<String> {
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int i, String s, JdbcType jdbcType) throws SQLException {
-
+    public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
+            throws SQLException {
+        log.info("set non null parameter");
+        ps.setString(i, parameter);
     }
 
     @Override
-    public String getNullableResult(ResultSet resultSet, String s) throws SQLException {
-        return null;
+    public String getNullableResult(ResultSet rs, String columnName)
+            throws SQLException {
+        return rs.getString(columnName);
     }
 
     @Override
-    public String getNullableResult(ResultSet resultSet, int i) throws SQLException {
-        return null;
+    public String getNullableResult(ResultSet rs, int columnIndex)
+            throws SQLException {
+        return rs.getString(columnIndex);
     }
 
     @Override
-    public String getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        return null;
+    public String getNullableResult(CallableStatement cs, int columnIndex)
+            throws SQLException {
+        return cs.getString(columnIndex);
     }
 }

@@ -42,18 +42,28 @@ public class JDBCTests {
         Assert.assertTrue(preparedStatement instanceof ClientPreparedStatement);
         //step three set parameter
         preparedStatement.setInt(1, 1);
-        //step four execute sql
-        ResultSet resultSet = preparedStatement.executeQuery();
-        Assert.assertTrue(resultSet instanceof ResultSetImpl);
-        //mapping Object
-        while (resultSet.next()) {
-            //mapping Object ...
-            int uid = resultSet.getInt("uid");
-            Assert.assertEquals(1, uid);
+
+        ResultSet resultSet = null;
+        try {
+//step four execute sql
+            resultSet = preparedStatement.executeQuery();
+            Assert.assertTrue(resultSet instanceof ResultSetImpl);
+            //mapping Object
+            while (resultSet.next()) {
+                //mapping Object ...
+                int uid = resultSet.getInt("uid");
+                Assert.assertEquals(1, uid);
+            }
+            connection.commit();
+        } catch (Exception e) {
+            connection.rollback();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            preparedStatement.close();
+            connection.close();
         }
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
     }
 
     @Test
