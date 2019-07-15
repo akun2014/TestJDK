@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="application.properties">
+        <property name="testKey" value="testValue"/>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+    </properties>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="DRUID" type="com.ownerkaka.testjdk.mybatis.DruidDataSourceFactory"/>
+        <typeAlias alias="spring-tx" type="org.mybatis.spring.transaction.SpringManagedTransactionFactory"/>
+        <package name="com.ownerkaka.testjdk.mybatis.domain"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <package name="com.ownerkaka.testjdk.mybatis.typehandler"/>
+    </typeHandlers>
+    <objectFactory type="com.ownerkaka.testjdk.mybatis.ExampleObjectFactory"/>
+
+    <plugins>
+        <plugin interceptor="com.ownerkaka.testjdk.mybatis.plugin.MyPlugin">
+            <property name="pluginKey" value="pluginValue"/>
+        </plugin>
+    </plugins>
+
+    <environments default="prod">
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver"/>
+                <property name="url" value="${spring.datasource.url}"/>
+                <property name="username" value="${spring.datasource.username}"/>
+                <property name="password" value="${spring.datasource.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${spring.datasource.url}"/>
+                <property name="username" value="${spring.datasource.username}"/>
+                <property name="password" value="${spring.datasource.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="prod">
+            <transactionManager type="spring-tx"/>
+            <dataSource type="DRUID">
+                <property name="druid.driver" value="${driver}"/>
+                <property name="druid.url" value="${spring.datasource.url}"/>
+                <property name="druid.username" value="${spring.datasource.username}"/>
+                <property name="druid.password" value="${spring.datasource.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--<package name="com.ownerkaka.testjdk.mybatis.mapper"/>-->
+        <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="mybatis/mapper/OptionsMapper.xml"/>
+    </mappers>
+</configuration>
