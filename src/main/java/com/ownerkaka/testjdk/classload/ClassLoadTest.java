@@ -3,6 +3,7 @@ package com.ownerkaka.testjdk.classload;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import sun.misc.Launcher;
 
@@ -14,20 +15,17 @@ import java.net.URL;
 @Slf4j
 public class ClassLoadTest {
 
-    static int num = 0;
-
-    static {
-        if (true) {
-            while (true) {
-                num = 1;
-            }
-        }
-    }
 
     @Getter
     @Setter
     private int age;
 
+
+    /**
+     * Bootstrap ClassLoader (path:${JAVA_HOME}/jre/lib)
+     *   sun.misc.Launcher$ExtClassLoader (path:${JAVA_HOME}/jre/ext)
+     *      sun.misc.Launcher$AppClassLoader (path:CLASS_PATH)
+     */
     @Test
     public void ClassLoadTreeTest() {
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -46,7 +44,6 @@ public class ClassLoadTest {
         Class<?> name = Class.forName("com.ownerkaka.testjdk.classload.ClassLoadTest", true, this.getClass().getClassLoader());
         ClassLoadTest o = (ClassLoadTest) name.newInstance();
         o.setAge(1);
-        log.info("age:{}", o.getAge());
-
+        Assert.assertEquals(1, o.getAge());
     }
 }

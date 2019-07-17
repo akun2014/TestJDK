@@ -36,7 +36,7 @@ public class CustomerClassLoader extends URLClassLoader {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, MalformedURLException, IllegalAccessException, InstantiationException {
-        URL[] urls = new URL[]{new URL("file:/Users/boyu/IdeaProjects/TestJDK/target/classes/")};
+        URL[] urls = new URL[]{new URL("file:/Users/akun/IdeaProjects/TestJDK/target/classes/")};
         CustomerClassLoader classLoader = new CustomerClassLoader(urls);
         Class<?> aClass = classLoader.loadClass("com.ownerkaka.testjdk.CommonBean", true);
 
