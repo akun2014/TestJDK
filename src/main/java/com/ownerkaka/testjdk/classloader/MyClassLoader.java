@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.classload;
+package com.ownerkaka.testjdk.classloader;
 
 /**
  * Created by akun on 2018/12/18.

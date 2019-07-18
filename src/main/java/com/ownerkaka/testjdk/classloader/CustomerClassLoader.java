@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.classload;
+package com.ownerkaka.testjdk.classloader;
 
 import com.ownerkaka.testjdk.CommonBean;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class CustomerClassLoader extends URLClassLoader {
         String simpleName2 = CommonBean.class.getClassLoader().getClass().getCanonicalName();
         Assert.assertEquals("load by AppClassLoader", "sun.misc.Launcher.AppClassLoader", simpleName2);
         String simpleName3 = aClass.getClassLoader().getClass().getCanonicalName();
-        Assert.assertEquals("load by CustomerClassLoader", "com.ownerkaka.testjdk.classload.CustomerClassLoader", simpleName3);
+        Assert.assertEquals("load by CustomerClassLoader", "com.ownerkaka.testjdk.classloader.CustomerClassLoader", simpleName3);
 
         boolean instance = aClass.isInstance(CommonBean.class);
         Assert.assertFalse(instance);

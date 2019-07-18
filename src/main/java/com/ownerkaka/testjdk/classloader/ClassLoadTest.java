@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.classload;
+package com.ownerkaka.testjdk.classloader;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +41,7 @@ public class ClassLoadTest {
 
     @Test
     public void loadClassByClassMethod() throws Exception {
-        Class<?> name = Class.forName("com.ownerkaka.testjdk.classload.ClassLoadTest", true, this.getClass().getClassLoader());
+        Class<?> name = Class.forName("com.ownerkaka.testjdk.classloader.ClassLoadTest", true, this.getClass().getClassLoader());
         ClassLoadTest o = (ClassLoadTest) name.newInstance();
         o.setAge(1);
         Assert.assertEquals(1, o.getAge());
