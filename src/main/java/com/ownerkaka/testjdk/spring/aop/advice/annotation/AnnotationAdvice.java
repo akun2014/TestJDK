@@ -18,13 +18,15 @@ import java.util.Arrays;
 @EnableAspectJAutoProxy
 public class AnnotationAdvice {
 
+    @Pointcut("@annotation(com.ownerkaka.testjdk.spring.aop.advice.annotation.MyPointCutAnnotation)")
+    public void p0() {
+    }
 
     @Pointcut("execution(public * com.ownerkaka.testjdk.support..*.bar(..))")
     public void p1() {
-
     }
 
-    @Before("p1()")
+    @Before("p1() || p0()")
     public void before(JoinPoint joinPoint) {
         log.info("before method invoke. args:{}", Arrays.toString(joinPoint.getArgs()));
     }
