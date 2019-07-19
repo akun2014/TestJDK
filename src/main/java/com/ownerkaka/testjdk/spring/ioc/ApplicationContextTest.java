@@ -76,4 +76,13 @@ public class ApplicationContextTest {
         Bar bar = applicationContext.getBean(Bar.class);
         assertNotNull(bar);
     }
+
+    @Test
+    public void testCustomXsd() {
+        GenericXmlApplicationContext applicationContext =
+                new GenericXmlApplicationContext("application-customer-xsd.xml");
+
+        Foo foo = (Foo) applicationContext.getBean("myFoo");
+        assertNotNull(foo);
+    }
 }
