@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.singleton;
+package com.ownerkaka.testjdk.designpattern23.singleton;
 
 /**
  * Created by akun on 2018/5/11.
