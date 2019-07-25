@@ -14,12 +14,19 @@ public class LinkedHashMapTest {
 
     @Test
     public void test() {
-//        Map<String, Integer> map = new LinkedHashMap<>();插入顺序
-        Map<String, Integer> map = new LinkedHashMap<>(16, 0.75F, true);//访问频次顺序，访问次数越多排在后面
+        LinkedHashMap map = new LinkedHashMap() {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                Object key = eldest.getKey();
+                Object value = eldest.getValue();
+                boolean flag = super.size() > 3;
+                return flag;
+            }
+        };
         map.put("a", 1);
         map.put("b", 1);
-        map.put("d", 1);
         map.put("c", 1);
+        map.put("d", 1);
 
         map.get("a");
         map.get("d");
@@ -28,5 +35,30 @@ public class LinkedHashMapTest {
         map.forEach((key, value) -> {
             log.info("key:{} value:{}", key, value);
         });
+    }
+
+    /**
+     * 元素被访问后，放到链表末尾
+     */
+    @Test
+    public void testAccessOrder() {
+        final int max_size = 3;
+        Map<String, Integer> map = new LinkedHashMap(16, 0.75F, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                boolean flag = super.size() > max_size;
+                return flag;
+            }
+        };
+
+        map.put("a", 1);
+        map.put("b", 1);
+        map.put("c", 1);
+        map.put("d", 1);
+
+        map.get("a");
+        map.get("d");
+        map.get("d");
+        map.forEach((key, value) -> log.info("key:{} value:{}", key, value));
     }
 }
