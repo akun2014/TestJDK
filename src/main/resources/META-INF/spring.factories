@@ -1,0 +1,3 @@
+com.ownerkaka.testjdk.support.service.BarService=com.ownerkaka.testjdk.support.service.impl.BarServiceImpl,\
+  com.ownerkaka.testjdk.support.service.impl.Bar2ServiceImpl
+com.ownerkaka.testjdk.support.service.FooService=com.ownerkaka.testjdk.support.service.impl.FooServiceImpl
