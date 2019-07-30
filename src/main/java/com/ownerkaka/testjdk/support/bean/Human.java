@@ -9,7 +9,7 @@ import lombok.Data;
 public class Human {
     private String gender;
     private String hairColor;
-    private String eayColor;
+    private String eyeColor;
     private Long created;
 
     public Human() {
