@@ -27,7 +27,9 @@ public class JDBCTests {
 
         //step zero load db driver (it's not necessary)
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(url, username, password);
+        Connection connection = DriverManager.getConnection(url, username, password);
+        connection.setAutoCommit(false);
+        return connection;
     }
 
 
