@@ -1,14 +1,12 @@
 package com.ownerkaka.testjdk.lang;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.ownerkaka.testjdk.threadpool.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Random;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -21,17 +19,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ThreadLocalTest {
 
-    private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(100, 100, 10L,
-            TimeUnit.SECONDS, new LinkedBlockingDeque<>(), new ThreadFactoryBuilder().setNameFormat("pool-%d").build());
+    private static final ThreadPoolExecutor threadPool = ThreadPoolUtil.getThreadPool();
     private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
     private Random random = new Random();
-
-
-    @BeforeClass
-    public static void init() {
-        threadPool.prestartAllCoreThreads();
-    }
-
 
     /**
      * ThreadLocal保证当前线程保存的数据不被其他线程修改，即统一线程set(Obj)设置的数据，与get()相同
@@ -53,9 +43,8 @@ public class ThreadLocalTest {
 
         //创建90个线程做相同的读写操作，模拟多线程环境
         for (int i = 0; i < 90; i++) {
-            threadPool.submit(task);
+            threadPool.execute(task);
         }
-
 
         while (threadPool.getActiveCount() > 0) {
         }

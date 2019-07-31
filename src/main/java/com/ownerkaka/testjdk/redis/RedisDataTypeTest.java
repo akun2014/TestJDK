@@ -1,6 +1,8 @@
 package com.ownerkaka.testjdk.redis;
 
-import org.junit.Before;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
@@ -12,31 +14,23 @@ import java.util.Map;
 /**
  * Created by akun on 2016/11/9.
  */
-public class TestReids {
+@Slf4j
+public class RedisDataTypeTest {
 
-    private Jedis jedis;
+    private static Jedis jedis;
     final String key = "KEY";
     final String value = "VALUE";
 
-    @Before
-    public void setup() {
-//        jedis = new Jedis("192.168.115.197", 6379);
-        jedis = new Jedis("localhost", 6379);
-//        jedis = new Jedis("r-2ze812794bcf2844.redis.rds.aliyuncs.com", 6379);
-        //权限认证
-//        jedis.auth("");
+    @BeforeClass
+    public static void setup() {
+        jedis = RedisClientUtil.getRedisClient();
     }
 
-    @Test
-    public void keyTest() {
-
-    }
     /**
-     * redis存储字符串
+     * jedis存储字符串
      */
     @Test
     public void testString() {
-
         String nx = jedis.get("aaa");
         System.out.println("nx:" + nx);
 
@@ -76,7 +70,7 @@ public class TestReids {
     }
 
     /**
-     * redis操作Map
+     * jedis操作Map
      */
     @Test
     public void testMap() {
@@ -148,6 +142,23 @@ public class TestReids {
         System.out.println(jedis.sismember("user", "who"));//判断 who 是否是user集合的元素
         System.out.println(jedis.srandmember("user"));
         System.out.println(jedis.scard("user"));//返回集合的元素个数
+    }
+
+
+    @Test
+    public void testZset() {
+        final String key = "testZset";
+        jedis.zadd(key, 1.2, "test1");
+        jedis.zadd(key, 1.3, "test2");
+        jedis.zadd(key, 1.5, "test3");
+        jedis.zadd(key, 1.0, "test4");
+
+        Long zcount = jedis.zcount(key, 1.0, 1.2);
+        Assert.assertEquals(2, zcount.longValue());
+        Double test1 = jedis.zscore(key, "test1");
+        Assert.assertEquals(1.2, test1, 0.1);
+        Long zcard = jedis.zcard(key);
+        Assert.assertEquals(4, zcard.longValue());
     }
 
     @Test
