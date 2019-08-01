@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -183,6 +184,16 @@ public class RedisDataTypeTest {
         Long bitmap = jedis.bitcount("bitmap");
         System.out.println("bitmap:" + bitmap);
         jedis.setbit(key, 0, true);
+    }
+
+
+    @Test
+    public void testByteKeyValue() {
+        final byte[] byteKey = "byteKey".getBytes(StandardCharsets.UTF_8);
+        final byte[] byteValue = "byteValue".getBytes(StandardCharsets.UTF_8);
+        jedis.set(byteKey, byteValue);
+        byte[] bytes = jedis.get(byteKey);
+        Assert.assertArrayEquals(byteValue, bytes);
     }
 
 }

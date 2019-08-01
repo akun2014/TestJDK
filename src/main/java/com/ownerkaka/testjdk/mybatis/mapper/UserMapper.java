@@ -11,4 +11,7 @@ public interface UserMapper {
     User getByUsername(String username);
 
     User getById(Integer id);
+
+    boolean updateUsername(Long id, String username);
+
 }

@@ -4,19 +4,15 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 import com.ownerkaka.testjdk.mybatis.domain.User;
 import com.ownerkaka.testjdk.mybatis.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.session.defaults.DefaultSqlSession;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 
@@ -27,23 +23,8 @@ import java.sql.Connection;
 @Slf4j
 public class MyBatisTests {
 
-    private static SqlSessionFactory sqlSessionFactory;
-    private SqlSession sqlSession;
-
-    @BeforeClass
-    public static void createSqlSessionFactory() throws IOException {
-        String resource = "mybatis/mybatis-config.xml";
-        InputStream stream = Resources.getResourceAsStream(MyBatisTests.class.getClassLoader(), resource);
-        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        sqlSessionFactory = sqlSessionFactoryBuilder.build(stream);
-        Assert.assertTrue(sqlSessionFactory instanceof DefaultSqlSessionFactory);
-    }
-
-    @Before
-    public void getSqlSession() {
-        sqlSession = sqlSessionFactory.openSession();
-        Assert.assertTrue(sqlSession instanceof DefaultSqlSession);
-    }
+    private SqlSession sqlSession = SqlSessionFactoryUtil.getSqlSession();
+    private SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
 
     @After
     public void closeSqlSession() {
@@ -79,11 +60,17 @@ public class MyBatisTests {
     }
 
     @Test
+    public void tesUpdatetUser() {
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.updateUsername(1L, "update");
+        User user = userMapper.getById(1);
+        Assert.assertEquals("update", user.getUsername());
+    }
+
+    @Test
     public void testMapper() {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.getByUsername("admin");
         Assert.assertNotNull(user);
     }
-
-
 }
