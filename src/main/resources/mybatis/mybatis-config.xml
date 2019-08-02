@@ -10,7 +10,7 @@
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
     </properties>
     <settings>
-        <!-- 是否开启SessionFactory级别缓存 -->
+        <!-- 是否开启全局缓存 -->
         <setting name="cacheEnabled" value="true"/>
         <!-- 局部缓存范围 SESSION | STATEMENT-->
         <!-- SESSION 同一session | STATEMENT 相同SQL-->
@@ -28,6 +28,7 @@
         <setting name="mapUnderscoreToCamelCase" value="false"/>
         <setting name="jdbcTypeForNull" value="OTHER"/>
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <setting name="logImpl" value="SLF4J"/>
     </settings>
 
     <typeAliases>
@@ -80,7 +81,7 @@
     <mappers>
         <!--<package name="com.ownerkaka.testjdk.mybatis.mapper"/>-->
         <mapper resource="mybatis/mapper/UserMapper.xml"/>
-        <mapper resource="mybatis/mapper/OptionsMapper.xml"/>
+        <!--<mapper resource="mybatis/mapper/OptionsMapper.xml"/>-->
         <mapper resource="mybatis/mapper/CommonMapper.xml"/>
     </mappers>
 </configuration>

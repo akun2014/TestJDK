@@ -2,12 +2,15 @@ package com.ownerkaka.testjdk.mybatis.cache;
 
 import com.ownerkaka.testjdk.redis.RedisClientUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.builder.InitializingObject;
 import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.CacheException;
+import org.apache.ibatis.io.Resources;
 import redis.clients.jedis.Jedis;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -17,12 +20,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Redis实现mybatis一级缓存
  */
 @Slf4j
-public class RedisCache implements Cache {
+public class RedisCache implements Cache, InitializingObject {
 
     private ReadWriteLock lock = new ReentrantReadWriteLock();
     private final byte[] REDIS_CACHE_KEY = "redisCacheKey".getBytes(StandardCharsets.UTF_8);
 
     private String id;
+    //default cached object size
+    private int size = 1024;
 
     public RedisCache(String id) {
         log.info("redis cache id:{}", id);
@@ -36,20 +41,41 @@ public class RedisCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
-        if (value != null) {
-            Jedis jedis = RedisClientUtil.getRedisClient();
-            jedis.hsetnx(REDIS_CACHE_KEY, key.toString().getBytes(StandardCharsets.UTF_8), serialize(value));
+        if (value != null && Serializable.class.isAssignableFrom(value.getClass())) {
+            Lock lock = this.lock.writeLock();
+            try {
+                if (lock.tryLock()) {
+                    Jedis jedis = RedisClientUtil.getRedisClient();
+                    int cachedSize = getSize();
+                    if (cachedSize > size) {
+                        //remove old cached object
+                    }
+                    jedis.hsetnx(REDIS_CACHE_KEY, key.toString().getBytes(StandardCharsets.UTF_8), serialize((Serializable) value));
+                }
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
     @Override
     public Object getObject(Object key) {
-        Jedis jedis = RedisClientUtil.getRedisClient();
-        byte[] bytes = jedis.hget(REDIS_CACHE_KEY, key.toString().getBytes(StandardCharsets.UTF_8));
-        if (bytes == null) {
-            return null;
+        if (key != null) {
+            Lock lock = this.lock.readLock();
+            try {
+                if (lock.tryLock()) {
+                    Jedis jedis = RedisClientUtil.getRedisClient();
+                    byte[] bytes = jedis.hget(REDIS_CACHE_KEY, key.toString().getBytes(StandardCharsets.UTF_8));
+                    if (bytes == null) {
+                        return null;
+                    }
+                    return deserialize(bytes);
+                }
+            } finally {
+                lock.unlock();
+            }
         }
-        return deserialize(bytes);
+        return null;
     }
 
     @Override
@@ -75,33 +101,46 @@ public class RedisCache implements Cache {
         return lock;
     }
 
-    private byte[] serialize(Object obj) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = null;
-        try {
-            os = new ObjectOutputStream(out);
-            os.writeObject(obj);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeQuietly(out);
-            IOUtils.closeQuietly(os);
+    private byte[] serialize(Serializable value) {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+            oos.writeObject(value);
+            oos.flush();
+            return bos.toByteArray();
+        } catch (Exception e) {
+            throw new CacheException("Error serializing object.  Cause: " + e, e);
         }
-        return out.toByteArray();
     }
 
-    private Object deserialize(byte[] data) {
-        ByteArrayInputStream in = new ByteArrayInputStream(data);
-        ObjectInputStream is = null;
-        try {
-            is = new ObjectInputStream(in);
-            return is.readObject();
+    private Serializable deserialize(byte[] value) {
+        Serializable result;
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(value);
+             ObjectInputStream ois = new CustomObjectInputStream(bis)) {
+            result = (Serializable) ois.readObject();
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeQuietly(is);
-            IOUtils.closeQuietly(in);
+            throw new CacheException("Error deserializing object.  Cause: " + e, e);
         }
-        return null;
+        return result;
+    }
+
+    public static class CustomObjectInputStream extends ObjectInputStream {
+
+        public CustomObjectInputStream(InputStream in) throws IOException {
+            super(in);
+        }
+
+        @Override
+        protected Class<?> resolveClass(ObjectStreamClass desc) throws ClassNotFoundException {
+            return Resources.classForName(desc.getName());
+        }
+
+    }
+
+    /**
+     * mybatis call this method after it's set all properties
+     */
+    @Override
+    public void initialize() throws Exception {
+        log.info("redis cache init finished");
     }
 }
