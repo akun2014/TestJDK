@@ -4,21 +4,19 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 import com.ownerkaka.testjdk.mybatis.domain.User;
 import com.ownerkaka.testjdk.mybatis.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.session.defaults.DefaultSqlSession;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author akun
@@ -27,23 +25,8 @@ import java.sql.Connection;
 @Slf4j
 public class MyBatisTests {
 
-    private static SqlSessionFactory sqlSessionFactory;
-    private SqlSession sqlSession;
-
-    @BeforeClass
-    public static void createSqlSessionFactory() throws IOException {
-        String resource = "mybatis/mybatis-config.xml";
-        InputStream stream = Resources.getResourceAsStream(MyBatisTests.class.getClassLoader(), resource);
-        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        sqlSessionFactory = sqlSessionFactoryBuilder.build(stream);
-        Assert.assertTrue(sqlSessionFactory instanceof DefaultSqlSessionFactory);
-    }
-
-    @Before
-    public void getSqlSession() {
-        sqlSession = sqlSessionFactory.openSession();
-        Assert.assertTrue(sqlSession instanceof DefaultSqlSession);
-    }
+    private SqlSession sqlSession = SqlSessionFactoryUtil.getSqlSession();
+    private SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
 
     @After
     public void closeSqlSession() {
@@ -79,11 +62,68 @@ public class MyBatisTests {
     }
 
     @Test
+    public void testGetByColumn() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.getByColumn("username", "test");
+        Assert.assertEquals("test", user.getUsername());
+        User user1 = mapper.getByColumn("email", "test@qq.com");
+        Assert.assertEquals("test@qq.com", user1.getEmail());
+    }
+
+    @Test
+    public void testFindByUsername() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = mapper.findByUsername("test", null, "test");
+        Assert.assertEquals("test", user.getUsername());
+    }
+
+    @Test
+    public void testFindByIdList() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        Integer[] spam = new Integer[]{1, 2, 3};
+        List<Integer> list = Arrays.asList(spam);
+        List<User> userList = mapper.findByIdList(list);
+        Assert.assertEquals(3, userList.size());
+    }
+
+    @Test
+    public void tesUpdateUser() {
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.updateUsername(1L, "update");
+        User user = userMapper.getById(1);
+        Assert.assertEquals("update", user.getUsername());
+    }
+
+    @Test
     public void testMapper() {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.getByUsername("admin");
         Assert.assertNotNull(user);
     }
 
+    @Test
+    public void createUser() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setPassword("test");
+        user.setUsername("myname");
+        user.setEmail("test@qq.com");
+        mapper.createUser(user);
+    }
 
+    @Test
+    public void removeUser() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.removeUser(4);
+    }
+
+    @Test
+    public void updateUser() throws Exception {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUid(5);
+        user.setPassword("testupdateuser");
+        boolean updateUser = mapper.updateUser(user);
+        Assert.assertTrue(updateUser);
+    }
 }

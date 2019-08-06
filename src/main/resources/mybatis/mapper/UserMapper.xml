@@ -3,15 +3,71 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ownerkaka.testjdk.mybatis.mapper.UserMapper">
-    <select id="getById" parameterType="int" resultType="User">
+
+    <!--<cache-ref namespace="redisCache"/>-->
+    <cache/>
+
+
+    <resultMap id="userResultMap" type="User">
+        <id property="id" column="uid"/>
+    </resultMap>
+
+    <select id="getById" parameterType="int" resultType="User" useCache="true" flushCache="false">
         select *
-        from t_users
+        from ownerkaka_user
         where uid = #{id}
     </select>
 
     <select id="getByUsername" resultType="com.ownerkaka.testjdk.mybatis.domain.User">
         select *
-        from t_users
+        from ownerkaka_user
         where username = #{username}
     </select>
+
+    <select id="findByUsername" resultType="User">
+        select * from ownerkaka_user
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <choose>
+                <when test="email != null">
+                    and email = #{email}
+                </when>
+                <when test="password != null">
+                    and password = #{password}
+                </when>
+                <otherwise>
+                    and password != null
+                </otherwise>
+            </choose>
+        </trim>
+    </select>
+
+    <select id="findByIdList" resultType="User">
+        select * from ownerkaka_user where uid in
+        <foreach collection="list" item="item" index="index"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        update ownerkaka_user
+        <set>
+            <if test="username != null">username = #{username}</if>
+            <if test="password != null">password = #{password}</if>
+            <if test="email != null">email = #{email}</if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="uid">
+        insert into ownerkaka_user(username,password,email,created)
+         values(#{username},#{password},#{email},now())
+    </insert>
+
+    <delete id="removeUser">
+        delete from ownerkaka_user where uid = #{uid}
+    </delete>
 </mapper>
