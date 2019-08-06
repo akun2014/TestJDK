@@ -1,6 +1,7 @@
 package com.ownerkaka.testjdk.collection.set;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.LinkedHashSet;
@@ -8,26 +9,15 @@ import java.util.Set;
 
 /**
  * Created by akun on 2018/5/31.
+ * 基于LinkedHashMap实现
  */
 @Slf4j
 public class LinkedHashSetTest {
     @Test
     public void test() {
         Set<String> set = new LinkedHashSet<>();
-        set.add("bb");
-        set.add("aa");
-        set.add("cc");
-        set.add("sdf");
-        set.add("ces");
-        set.add("ds");
+        SetUtil.addElement(set);
 
-        set.contains("bb");
-        set.contains("cc");
-        set.contains("cc");
-
-        //以元素的添加顺序访问集合的元素
-        set.forEach(value -> {
-            log.info("vaule:{}", value);
-        });
+        Assert.assertArrayEquals(new String[]{"aa", "bb", "ca", "cb", "daa", "da"}, set.toArray(new String[0]));
     }
 }
