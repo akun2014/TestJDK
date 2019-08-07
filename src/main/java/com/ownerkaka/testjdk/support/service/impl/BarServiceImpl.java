@@ -5,6 +5,7 @@ import com.ownerkaka.testjdk.support.service.AbstractBaseService;
 import com.ownerkaka.testjdk.support.service.BarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@Primary
 public class BarServiceImpl extends AbstractBaseService implements BarService {
 
     @Override
