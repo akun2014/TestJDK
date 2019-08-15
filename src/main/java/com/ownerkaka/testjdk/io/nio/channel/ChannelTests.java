@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import sun.nio.ch.FileChannelImpl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
@@ -41,6 +43,7 @@ public class ChannelTests {
     @Test
     public void testFileChannel() throws IOException {
         FileChannel channel = FileChannel.open(Paths.get("test.txt"), StandardOpenOption.READ, StandardOpenOption.WRITE);
+        Assert.assertTrue(channel instanceof FileChannelImpl);
 
         channel = channel.position(5);//设定读取位置
         Assert.assertEquals(5, channel.position());
@@ -58,6 +61,31 @@ public class ChannelTests {
             read = channel.read(buffer);
         }
         log.info("{}", data.toString());
+        IOUtils.closeQuietly(channel);
+    }
+
+    @Test
+    public void testFileChannelWrite() throws IOException {
+        FileChannel channel = FileChannel.open(Paths.get("test.txt"), StandardOpenOption.APPEND);
+
+        ByteBuffer data = StandardCharsets.UTF_8.encode("\ntest_fileChannel_write");
+        channel.write(data);
+        channel.force(true);
+        IOUtils.closeQuietly(channel);
+    }
+
+    /**
+     * 开辟直接内存做数据读写
+     */
+    @Test
+    public void testFileChannelMap() throws IOException {
+        FileChannel channel = FileChannel.open(Paths.get("test.txt"), StandardOpenOption.READ);
+        MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+
+        byte[] tmp = new byte[buffer.remaining()];
+        buffer.get(tmp);
+
+        log.info("{}", new String(tmp, StandardCharsets.UTF_8));
         IOUtils.closeQuietly(channel);
     }
 
