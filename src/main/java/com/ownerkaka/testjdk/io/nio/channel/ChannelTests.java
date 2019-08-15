@@ -2,12 +2,17 @@ package com.ownerkaka.testjdk.io.nio.channel;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * @author akun
@@ -34,20 +39,49 @@ import java.nio.channels.FileChannel;
 public class ChannelTests {
 
     @Test
-    public void test() throws IOException {
-        RandomAccessFile accessFile = new RandomAccessFile("application.properties", "rw");
-        FileChannel channel = accessFile.getChannel();
-        ByteBuffer buffer = ByteBuffer.allocate(48);
+    public void testFileChannel() throws IOException {
+        FileChannel channel = FileChannel.open(Paths.get("test.txt"), StandardOpenOption.READ, StandardOpenOption.WRITE);
 
+        channel = channel.position(5);//设定读取位置
+        Assert.assertEquals(5, channel.position());
+
+        ByteBuffer buffer = ByteBuffer.allocate(128);
+
+        StringBuffer data = new StringBuffer();
         int read = channel.read(buffer);
+        System.out.println(read);
         while (read != -1) {
             buffer.flip();
-            while (buffer.hasRemaining()) {
-                System.out.print((char) buffer.get());
-            }
+            String result = StandardCharsets.UTF_8.decode(buffer).toString();
+            data.append(result);
             buffer.clear();
             read = channel.read(buffer);
         }
-        IOUtils.closeQuietly(accessFile);
+        log.info("{}", data.toString());
+        IOUtils.closeQuietly(channel);
+    }
+
+
+    @Test
+    public void testSocketChannel() throws IOException {
+        SocketChannel channel = SocketChannel.open(new InetSocketAddress("http://47.96.111.8", 80));
+
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        int read = channel.read(buffer);
+
+        while (read != -1) {
+            buffer.flip();
+
+            while (buffer.hasRemaining()) {
+                String result = new String(buffer.array(), StandardCharsets.UTF_8);
+                System.out.println(result);
+            }
+
+            buffer.clear();
+            read = channel.read(buffer);
+        }
+
+
+        IOUtils.closeQuietly(channel);
     }
 }
