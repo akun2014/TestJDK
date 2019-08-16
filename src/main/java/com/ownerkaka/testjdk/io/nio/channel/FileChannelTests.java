@@ -38,7 +38,7 @@ import java.nio.file.StandardOpenOption;
  * ServerSocketChannel 可以监听新进来的TCP连接，像Web服务器那样。对每一个新进来的连接都会创建一个SocketChannel。
  */
 @Slf4j
-public class ChannelTests {
+public class FileChannelTests {
 
     @Test
     public void testFileChannel() throws IOException {
@@ -90,26 +90,5 @@ public class ChannelTests {
     }
 
 
-    @Test
-    public void testSocketChannel() throws IOException {
-        SocketChannel channel = SocketChannel.open(new InetSocketAddress("http://47.96.111.8", 80));
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
-        int read = channel.read(buffer);
-
-        while (read != -1) {
-            buffer.flip();
-
-            while (buffer.hasRemaining()) {
-                String result = new String(buffer.array(), StandardCharsets.UTF_8);
-                System.out.println(result);
-            }
-
-            buffer.clear();
-            read = channel.read(buffer);
-        }
-
-
-        IOUtils.closeQuietly(channel);
-    }
 }
