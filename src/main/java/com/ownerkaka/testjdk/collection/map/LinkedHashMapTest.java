@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.map;
+package com.ownerkaka.testjdk.collection.map;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
