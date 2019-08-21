@@ -1,7 +1,7 @@
 package com.ownerkaka.testjdk.designpattern23.factory.test;
 
 import com.ownerkaka.testjdk.designpattern23.factory.generoal.Sender;
-import com.ownerkaka.testjdk.designpattern23.proxy.pattren.Proxy;
+import com.ownerkaka.testjdk.designpattern23.proxy.Proxy;
 
 public class ProxyTest {
 

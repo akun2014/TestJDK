@@ -20,13 +20,13 @@ import org.springframework.stereotype.Component;
 public class BeanPostProcessorTest implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        log.info("Before-{} bean:{}", beanName, bean);
+        log.info("Before-{} bean:{}", beanName, bean.getClass().getSimpleName());
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        log.info("After-{} bean:{}", beanName, bean);
+        log.debug("After-{} bean:{}", beanName, bean);
         return bean;
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns="http://ownerkaka.com/schema/ownerkaka"
+            targetNamespace="http://ownerkaka.com/schema/ownerkaka">
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+
+    <xsd:element name="foo">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:attribute name="name" type="xsd:string" use="required"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

@@ -1,8 +1,11 @@
 package com.ownerkaka.testjdk.proxy.jdk;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+@Slf4j
 public class TimeHandler implements InvocationHandler {
 
     private Object target;
@@ -20,13 +23,13 @@ public class TimeHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
-        System.out.println("日志记录开始");
+        log.info("日志记录开始");
         long s = System.currentTimeMillis();
-        method.invoke(target, args);
+        Object result = method.invoke(target, args);
         long e = System.currentTimeMillis();
-        System.out.println("日志记录结束");
-        System.out.println("运行时间" + (e - s));
-        return null;
+        log.info("日志记录结束");
+        log.info("运行时间:{}", e - s);
+        return result;
     }
 
 }

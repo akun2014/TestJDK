@@ -1,6 +1,6 @@
 package com.ownerkaka.testjdk.designpattern23.factory.test;
 
-import com.ownerkaka.testjdk.designpattern23.adapter.pattren.ClazzAdapter;
+import com.ownerkaka.testjdk.designpattern23.adapter.ClazzAdapter;
 
 public class AdapterTest {
 

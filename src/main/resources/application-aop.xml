@@ -9,13 +9,20 @@
 
 
     <bean id="annotationAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice"/>
-    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar"/>
+    <bean id="human" class="com.ownerkaka.testjdk.support.bean.Human" scope="prototype"/>
+    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar">
+        <lookup-method name="getHuman" bean="human"/>
+    </bean>
+    <bean id="barService" class="com.ownerkaka.testjdk.support.service.impl.BarServiceImpl">
+    </bean>
     <bean id="ticketServiceBeforeAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.TicketServiceBeforeAdvice"/>
+    <bean class="com.ownerkaka.testjdk.spring.ioc.processor.BeanFactoryPostProcessorTest"/>
 
-    <aop:config proxy-target-class="true">
+    <aop:config>
         <aop:pointcut id="p1" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
         <aop:pointcut id="p2" expression="execution(public * com.ownerkaka.testjdk..support.bean..*.foo(..))"/>
-        <aop:aspect id="id" ref="annotationAdvice">
+        <aop:aspect id="aspect1" ref="annotationAdvice" order="0">
+            <aop:pointcut id="p3" expression="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice.p1()"/>
             <aop:before method="before"
                         pointcut="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
             <aop:after method="after" pointcut-ref="p1"/>
@@ -23,10 +30,17 @@
             <aop:after-returning method="afterReturning" pointcut-ref="p1"/>
             <aop:after-throwing method="afterThrowing" pointcut-ref="p2"/>
         </aop:aspect>
+        <aop:aspect id="aspect2" ref="annotationAdvice">
+            <aop:after method="after" pointcut-ref="p1"/>
+        </aop:aspect>
     </aop:config>
 
+    <!--Enables the use of the @AspectJ style of Spring AOP-->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="false"/>
+    <!--<aop:scoped-proxy proxy-target-class="false"/>-->
+
     <aop:config>
-        <aop:pointcut id="p3" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.bar(..))"/>
-        <aop:advisor advice-ref="ticketServiceBeforeAdvice" pointcut-ref="p3"/>
+        <aop:pointcut id="p4" expression="execution(public * com.ownerkaka.testjdk.support.service.impl..*.bar(..))"/>
+        <aop:advisor advice-ref="ticketServiceBeforeAdvice" pointcut-ref="p4"/>
     </aop:config>
 </beans>

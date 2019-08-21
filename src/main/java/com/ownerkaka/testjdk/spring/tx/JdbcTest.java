@@ -20,7 +20,7 @@ public class JdbcTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-tx.xml");
 
         JdbcTemplate jdbcTemplate = applicationContext.getBean(JdbcTemplate.class);
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM mars_app");
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM t_users");
         System.out.println(list);
     }
 }

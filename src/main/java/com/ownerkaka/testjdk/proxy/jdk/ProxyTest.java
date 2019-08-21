@@ -2,12 +2,12 @@ package com.ownerkaka.testjdk.proxy.jdk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import sun.misc.ProxyGenerator;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
@@ -21,18 +21,13 @@ public class ProxyTest {
 
     @Test
     public void proxyTest() throws Exception {
-
         Car car = new Car();
-        InvocationHandler h = new TimeHandler(car);
-        Class<?> cls = car.getClass();
-        log.info("{}", cls.toGenericString());
-        Field[] fields = cls.getFields();
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
-            log.info("field {} type name:{}", field.getName(), field.getType().getTypeName());
-        }
+        InvocationHandler invocationHandler = new TimeHandler(car);
 
-        Moveable m = (Moveable) Proxy.newProxyInstance(cls.getClassLoader(), cls.getInterfaces(), h);
+        Moveable m = (Moveable) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{Moveable.class}, invocationHandler);
+        Assert.assertTrue(Proxy.isProxyClass(m.getClass()));
+        Assert.assertFalse(m instanceof Car);
+        Assert.assertTrue(Moveable.class.isAssignableFrom(m.getClass()));
         m.move();
     }
 

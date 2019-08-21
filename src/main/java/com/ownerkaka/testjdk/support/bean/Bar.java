@@ -49,4 +49,8 @@ public class Bar implements InitializingBean, BeanNameAware {
     public String append(String source) {
         return "bar" + source;
     }
+
+    public Human getHuman() {
+        return null;
+    }
 }
