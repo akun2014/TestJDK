@@ -28,7 +28,7 @@ public class QuickSort {
                     i++;
                 // 交换两个数在数组中的位置
                 if (i < j) {
-                    swap(a, i, j);
+                    SortUtil.swap(a, i, j);
                 }
             }
             // 最终将基准数归位
@@ -48,12 +48,5 @@ public class QuickSort {
         quickSort(arr, 0, arr.length - 1);
 //        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 4, 5, 6, 7, 8}, arr);
         Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5, 7, 8}, arr);
-    }
-
-    private void swap(int[] a, int i, int j) {
-        int t;
-        t = a[i];
-        a[i] = a[j];
-        a[j] = t;
     }
 }
