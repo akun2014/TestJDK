@@ -1,50 +1,59 @@
 package com.ownerkaka.testjdk.algorithm.base;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * 快速排序算法
- * 
+ * 采用递归的方式，分而治之
+ *
  * @author gk
- * 
  */
+@Slf4j
 public class QuickSort {
 
-	void quicksort(int[] a, int left, int right) {
-		int i, j, t, temp;
-		if (left > right)
-			return;
+    private void quickSort(int[] a, int left, int right) {
+        if (left < right) {
+            int i, j, temp;
+            temp = a[left]; // temp中存的就是基准数
+            i = left;
+            j = right;
+            while (i < j) {
+                // 顺序很重要，要先从右边开始找
+                while (a[j] >= temp && i < j)
+                    j--;
+                // 再找左边的
+                while (a[i] <= temp && i < j)
+                    i++;
+                // 交换两个数在数组中的位置
+                if (i < j) {
+                    swap(a, i, j);
+                }
+            }
+            // 最终将基准数归位
+            a[left] = a[i];
+            a[i] = temp;
 
-		temp = a[left]; // temp中存的就是基准数
-		i = left;
-		j = right;
-		while (i != j) {
-			// 顺序很重要，要先从右边开始找
-			while (a[j] >= temp && i < j)
-				j--;
-			// 再找左边的
-			while (a[i] <= temp && i < j)
-				i++;
-			// 交换两个数在数组中的位置
-			if (i < j) {
-				t = a[i];
-				a[i] = a[j];
-				a[j] = t;
-			}
-		}
-		// 最终将基准数归位
-		a[left] = a[i];
-		a[i] = temp;
+            log.info("left:{} right:{}", left, right);
+            quickSort(a, left, i - 1);// 继续处理左边的，这里是一个递归的过程
+            quickSort(a, i + 1, right);// 继续处理右边的 ，这里是一个递归的过程
+        }
+    }
 
-		quicksort(a, left, i - 1);// 继续处理左边的，这里是一个递归的过程
-		quicksort(a, i + 1, right);// 继续处理右边的 ，这里是一个递归的过程
-	}
+    @Test
+    public void test() {
+        int[] arr = new int[]{5, 8, 7, 4, 3, 1, 2};
+//        int[] arr = new int[]{2, 8, 7, 1, 3, 5, 6, 4, 4};
+        quickSort(arr, 0, arr.length - 1);
+//        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 4, 5, 6, 7, 8}, arr);
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5, 7, 8}, arr);
+    }
 
-	public static void main(String[] args) {
-		// int arr[] = new int[]{6 , 1 ,2 ,7 , 9 ,3 ,4 ,5 ,10,
-		// 8,6,8,19};//定义全局变量，这两个变量需要在子函数中使用
-		int arr[] = new int[] { 2, 8, 7, 1, 3, 5, 6, 4 };// 定义全局变量，这两个变量需要在子函数中使用
-		new QuickSort().quicksort(arr, 0, arr.length - 1);
-		for (int i : arr) {
-			System.out.print(i + " ");
-		}
-	}
+    private void swap(int[] a, int i, int j) {
+        int t;
+        t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
 }
