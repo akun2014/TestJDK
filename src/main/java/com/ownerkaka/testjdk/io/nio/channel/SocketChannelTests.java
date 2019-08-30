@@ -67,7 +67,7 @@ public class SocketChannelTests {
         }
         channel.configureBlocking(false);
 
-        channel.write(ByteBuffer.wrap("Hello Server!".getBytes()));
+        channel.write(ByteBuffer.wrap("Hello Server! I'm Client".getBytes()));
         channel.register(selector, SelectionKey.OP_READ);
     }
 }
