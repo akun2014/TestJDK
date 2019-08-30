@@ -31,19 +31,22 @@ public class ServerSocketChannelTests {
 
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         while (true) {
-            selector.select();
+            int selected = selector.select();
+            if (selected == 0) {
+                continue;
+            }
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
 
             while (iterator.hasNext()) {
                 SelectionKey key = iterator.next();
-                iterator.remove();
 
                 if (key.isAcceptable()) {
                     handleAccept(key);
                 } else if (key.isReadable()) {
                     handleRead(key);
                 }
+                iterator.remove();
             }
         }
     }
