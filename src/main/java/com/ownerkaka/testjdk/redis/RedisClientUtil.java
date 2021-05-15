@@ -24,7 +24,7 @@ public class RedisClientUtil {
             Properties properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource("application.properties"));
             String host = properties.getProperty("spring.redis.host");
             int port = Integer.parseInt(properties.getProperty("spring.redis.port", "6379"));
-            jedisPool = new JedisPool(new JedisPoolConfig(), host, port, 300);
+            jedisPool = new JedisPool(new JedisPoolConfig(), "127.0.0.1", port, 300);
             log.info("redis pool init finished");
         } catch (IOException ignored) {
         }

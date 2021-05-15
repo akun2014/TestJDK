@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -35,7 +36,10 @@ public class RedisDataTypeTest {
         String nx = jedis.get("aaa");
         System.out.println("nx:" + nx);
 
-        jedis.set(key, value, "NX", "EX", 10L);
+        SetParams params = new SetParams();
+        params.ex(10);
+        params.nx();
+        String set = jedis.set(key, value, params);
         Long flag1 = jedis.setnx(key, value);
         Long flag2 = jedis.setnx(key, value);
         System.out.println(flag1 + ":" + flag2);
@@ -196,4 +200,12 @@ public class RedisDataTypeTest {
         Assert.assertArrayEquals(byteValue, bytes);
     }
 
+    @Test
+    public void lockTest() {
+        SetParams params = new SetParams();
+        params.ex(10);
+        params.nx();
+        String set = jedis.set(key, value,params);
+        log.info("status:{}", set);
+    }
 }

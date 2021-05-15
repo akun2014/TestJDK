@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -74,7 +75,10 @@ public class RedisDistributedLockTests {
         final String LOCK_SUCCESS = "OK";
         final String SET_IF_NOT_EXIST = "NX";
         final String SET_WITH_EXPIRE_TIME = "PX";
-        String result = redisClient.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+        SetParams params = new SetParams();
+        params.ex(expireTime);
+        params.nx();
+        String result = redisClient.set(lockKey, requestId, params);
 
         return LOCK_SUCCESS.equals(result);
     }
