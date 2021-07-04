@@ -10,8 +10,18 @@
 
     <bean id="annotationAdvice" class="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice"/>
     <bean id="human" class="com.ownerkaka.testjdk.support.bean.Human" scope="prototype"/>
-    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar">
+    <bean id="bar" class="com.ownerkaka.testjdk.support.bean.Bar" autowire="byName">
         <lookup-method name="getHuman" bean="human"/>
+        <qualifier>
+            <attribute key="foo" value="foo"/>
+        </qualifier>
+        <property name="foo" ref="foo"/>
+    </bean>
+    <bean id="foo" class="com.ownerkaka.testjdk.support.bean.Foo" autowire="byName">
+        <qualifier>
+            <attribute key="bar" value="bar"/>
+        </qualifier>
+        <property name="bar" ref="bar"/>
     </bean>
     <bean id="barService" class="com.ownerkaka.testjdk.support.service.impl.BarServiceImpl">
     </bean>
@@ -22,7 +32,8 @@
         <aop:pointcut id="p1" expression="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
         <aop:pointcut id="p2" expression="execution(public * com.ownerkaka.testjdk..support.bean..*.foo(..))"/>
         <aop:aspect id="aspect1" ref="annotationAdvice" order="0">
-            <aop:pointcut id="p3" expression="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice.p1()"/>
+            <aop:pointcut id="p3"
+                          expression="com.ownerkaka.testjdk.spring.aop.advice.annotation.AnnotationAdvice.p1()"/>
             <aop:before method="before"
                         pointcut="execution(public * com.ownerkaka.testjdk.support.bean..*.append(..))"/>
             <aop:after method="after" pointcut-ref="p1"/>

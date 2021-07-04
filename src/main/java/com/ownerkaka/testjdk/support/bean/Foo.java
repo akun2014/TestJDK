@@ -2,6 +2,7 @@ package com.ownerkaka.testjdk.support.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,15 +12,12 @@ import java.util.List;
  */
 @Data
 @Component
-@NoArgsConstructor
 public class Foo {
     private String type;
     private User user;
     private List<String> member;
+    @Autowired
     private Bar bar;
 
-    public Foo(Bar bar, User user) {
-        this.bar = bar;
-        this.user = user;
-    }
+
 }

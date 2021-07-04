@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <properties resource="application-test.properties">
+    <properties resource="application-dev.properties">
         <property name="testKey" value="testValue"/>
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>

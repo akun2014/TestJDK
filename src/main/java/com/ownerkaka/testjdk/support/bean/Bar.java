@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,22 +16,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @NoArgsConstructor
 public class Bar implements InitializingBean, BeanNameAware {
-    @Autowired
-    @Setter
-    private Foo foo;
+//    @Autowired
+//    private Foo foo;
     private String beanName;
 
-    public Bar(Foo foo) {
-        this.foo = foo;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Bar{" +
-                "foo=" + foo +
-                '}';
-    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

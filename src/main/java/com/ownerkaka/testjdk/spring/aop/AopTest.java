@@ -57,4 +57,11 @@ public class AopTest {
         Assert.assertNotNull(bar.getHuman());
         Assert.assertNotSame(bar.getHuman(), bar.getHuman());
     }
+
+    @Test
+    public void circularRef() {
+        Bar bar = applicationContext.getBean(Bar.class);
+        assertEquals("around:baraoptest", bar.append("aoptest"));
+        assertTrue(bar instanceof Bar);
+    }
 }
