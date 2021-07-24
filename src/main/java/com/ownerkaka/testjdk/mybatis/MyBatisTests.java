@@ -126,4 +126,9 @@ public class MyBatisTests {
         boolean updateUser = mapper.updateUser(user);
         Assert.assertTrue(updateUser);
     }
+
+    @Test
+    public void name() {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    }
 }
