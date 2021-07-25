@@ -36,7 +36,7 @@ public class ZkClientTest {
         zkClient = new ZkClient("127.0.0.1:2181", 5000);
         TimeUnit.SECONDS.sleep(2);
         threadPool.execute(this::addListener);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.HOURS.sleep(2);
 
         log.info("zkclient inited.numberOfListeners={}", zkClient.numberOfListeners());
     }
@@ -132,7 +132,7 @@ public class ZkClientTest {
     }
 
     private void addListener() {
-        // 添加子节点状态监听->将监听创建，减少，删除子节点状态
+        // 添加子节点状态监听->将监听创建，删除子节点状态
         zkClient.subscribeChildChanges(parentPath, new IZkChildListener() {
             @Override
             public void handleChildChange(String parentPath, List<String> currentChilds) throws Exception {
