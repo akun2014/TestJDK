@@ -27,13 +27,7 @@ public class CuratorZkClientTest {
 
     @Before
     public void init() {
-        client = CuratorFrameworkFactory.builder()
-                .retryPolicy(new RetryNTimes(1, 1000))
-                .connectString("127.0.0.1:2181")
-                .namespace("dubbo")
-                .connectionTimeoutMs(1000)
-                .build();
-        client.start();
+        client = ZkClientUtil.client;
     }
 
     @After
