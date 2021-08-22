@@ -21,14 +21,6 @@ import java.nio.file.StandardOpenOption;
  * @since 2019-08-14
  * Java NIO中最重要的通道的实现：
  * <p>
- * FileChannel
- * <p>
- * DatagramChannel
- * <p>
- * SocketChannel
- * <p>
- * ServerSocketChannel
- * <p>
  * FileChannel 从文件中读写数据。
  * <p>
  * DatagramChannel 能通过UDP读写网络中的数据。
