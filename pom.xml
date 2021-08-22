@@ -7,7 +7,7 @@
     <groupId>com.ownerkaka</groupId>
     <artifactId>testjdk</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,6 +24,15 @@
             <email>e-gk@qq.com</email>
         </developer>
     </developers>
+
+    <modules>
+        <module>TestDubbo</module>
+        <module>TestKafka</module>
+        <module>TestMybatis</module>
+        <module>TestNetty</module>
+        <module>TestRedis</module>
+        <module>TestSpring</module>
+    </modules>
 
     <properties>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>

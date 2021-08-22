@@ -1,5 +1,6 @@
 package com.ownerkaka.testjdk.io.nio.channel;
 
+import com.ownerkaka.testjdk.common.entity.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -9,8 +10,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author akun
@@ -19,55 +22,22 @@ import java.util.Set;
 @Slf4j
 public class SocketChannelTests {
 
-    private static Selector selector;
-
     @Test
-    public void test() throws IOException {
-        selector = Selector.open();
+    public void clientChannel() throws IOException, InterruptedException {
         SocketChannel channel = SocketChannel.open();
         channel.configureBlocking(false);
-        channel.connect(new InetSocketAddress("localhost", 9090));
-
-        channel.register(selector, SelectionKey.OP_CONNECT);
-
-        while (true) {
-            selector.select();
-
-            Set<SelectionKey> selectionKeys = selector.selectedKeys();
-            Iterator<SelectionKey> iterator = selectionKeys.iterator();
-
-            while (iterator.hasNext()) {
-                SelectionKey key = iterator.next();
-                iterator.remove();
-
-                if (key.isConnectable()) {
-                    handleConnect(key);
-                } else if (key.isReadable()) {
-                    handleRead(key);
-                }
+        channel.connect(new InetSocketAddress("localhost", Constants.port));
+        log.info("channel.isConnected={}", channel.isConnected());
+        if (!channel.isConnected()) {
+            while (!channel.finishConnect()) {
+                log.info("连接服务器。。。");
             }
         }
-    }
+        log.info("channel.isConnected={}", channel.isConnected());
 
-    private void handleRead(SelectionKey key) throws IOException {
-        SocketChannel channel = (SocketChannel) key.channel();
-        ByteBuffer buffer = ByteBuffer.allocate(128);
-        channel.read(buffer);
-
-        // 输出服务端响应发送过来的消息
-        byte[] data = buffer.array();
-        String msg = new String(data).trim();
-        System.out.println("client receive msg from server：" + msg);
-    }
-
-    private void handleConnect(SelectionKey key) throws IOException {
-        SocketChannel channel = (SocketChannel) key.channel();
-        if (channel.isConnectionPending()) {
-            channel.finishConnect();
-        }
-        channel.configureBlocking(false);
-
-        channel.write(ByteBuffer.wrap("Hello Server! I'm Client".getBytes()));
-        channel.register(selector, SelectionKey.OP_READ);
+        String data = "hello server";
+        ByteBuffer buffer = ByteBuffer.wrap(data.getBytes(StandardCharsets.UTF_8));
+        channel.write(buffer);
+        TimeUnit.HOURS.sleep(1);
     }
 }

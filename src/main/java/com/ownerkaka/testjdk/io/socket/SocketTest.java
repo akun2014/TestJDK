@@ -1,11 +1,13 @@
 package com.ownerkaka.testjdk.io.socket;
 
+import com.ownerkaka.testjdk.common.entity.Constants;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,7 +24,7 @@ public class SocketTest {
     @SneakyThrows
     public void clientTest() {
         Socket socket = new Socket();
-        InetSocketAddress address = new InetSocketAddress(9090);
+        InetSocketAddress address = new InetSocketAddress(Constants.port);
         socket.connect(address);
 
         log.info("isConnected={}", socket.isConnected());
@@ -36,10 +38,13 @@ public class SocketTest {
     @Test
     @SneakyThrows
     public void serverTest() {
-        ServerSocket serverSocket = new ServerSocket(9090);
+        ServerSocket serverSocket = new ServerSocket(Constants.port, 50, InetAddress.getLocalHost());
+
         log.info("start on 9090");
         while (true) {
+            log.info("监听连接");
             Socket socket = serverSocket.accept();
+            log.info("socket.isConnected={} hashCode={}", socket.isConnected(), socket.hashCode());
             //in/out stream
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
