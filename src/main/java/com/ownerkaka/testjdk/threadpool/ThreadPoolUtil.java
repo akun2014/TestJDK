@@ -14,9 +14,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ThreadPoolUtil {
 
-    private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(100, 200, 10L,
-            TimeUnit.SECONDS, new LinkedBlockingDeque<>(), new ThreadFactoryBuilder()
-            .setNameFormat("named-pool-%d").build(), new ThreadPoolExecutor.DiscardPolicy());
+    private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(100, 100,
+            0, TimeUnit.SECONDS,
+            new LinkedBlockingDeque<>(50),
+            new ThreadFactoryBuilder().setNameFormat("named-pool-%d").build(),
+            new ThreadPoolExecutor.DiscardPolicy());
 
     static {
         threadPool.prestartAllCoreThreads();
@@ -26,9 +28,11 @@ public class ThreadPoolUtil {
         return threadPool;
     }
 
-    public static void await() {
-        while (threadPool.getActiveCount() > 0) {
-
-        }
+    public static ThreadPoolExecutor getThreadPool(int size) {
+        return new ThreadPoolExecutor(size, size,
+                0, TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(500),
+                new ThreadFactoryBuilder().setNameFormat("named-pool-%d").build(),
+                new ThreadPoolExecutor.CallerRunsPolicy());
     }
 }
