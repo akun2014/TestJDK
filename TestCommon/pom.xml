@@ -7,24 +7,13 @@
         <artifactId>testjdk</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>testnetty</artifactId>
+    <artifactId>TestCommon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>TestNetty</name>
+    <packaging>jar</packaging>
+
+    <name>TestCommon</name>
     <description>Demo project for Spring Boot</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.ownerkaka</groupId>
-            <artifactId>TestCommon</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-serialization-hessian2</artifactId>
-            <version>3.0.2.1</version>
-            <scope>compile</scope>
-        </dependency>
 
-    </dependencies>
 
 </project>

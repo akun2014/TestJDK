@@ -32,6 +32,7 @@
         <module>TestNetty</module>
         <module>TestRedis</module>
         <module>TestSpring</module>
+        <module>TestCommon</module>
     </modules>
 
     <properties>
