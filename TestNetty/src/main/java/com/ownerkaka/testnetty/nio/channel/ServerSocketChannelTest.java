@@ -1,6 +1,6 @@
-package com.ownerkaka.testjdk.io.nio.channel;
+package com.ownerkaka.testnetty.nio.channel;
 
-import com.ownerkaka.testjdk.common.entity.Constants;
+import com.ownerkaka.testcommon.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -11,33 +11,55 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author akun
  * @since 2019-08-16
+ * Basic Reactor Design
  */
 @Slf4j
-public class ServerSocketChannelTests {
-    private static Selector selector;
+public class ServerSocketChannelTest {
+
+
+    @Test
+    public void clientChannel() throws IOException, InterruptedException {
+        SocketChannel channel = SocketChannel.open();
+        channel.configureBlocking(false);
+        channel.connect(new InetSocketAddress("localhost", Constants.PORT));
+        log.info("channel.isConnected={}", channel.isConnected());
+        if (!channel.isConnected()) {
+            while (!channel.finishConnect()) {
+                log.info("连接服务器。。。");
+            }
+        }
+        log.info("channel.isConnected={}", channel.isConnected());
+
+        String data = "hello server";
+        ByteBuffer buffer = ByteBuffer.wrap(data.getBytes(StandardCharsets.UTF_8));
+        channel.write(buffer);
+        TimeUnit.HOURS.sleep(1);
+    }
 
     @Test
     public void serverSocket() throws IOException {
-        selector = Selector.open();
+        Selector selector = Selector.open();
 
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.bind(new InetSocketAddress(Constants.port));
+        serverSocketChannel.bind(new InetSocketAddress(Constants.PORT));
         log.info("serverSocketChannel isOpen={}", serverSocketChannel.isOpen());
         log.info("serverSocketChannel isRegistered={}", serverSocketChannel.isRegistered());
         log.info("serverSocketChannel isBlocking={}", serverSocketChannel.isBlocking());
 
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         log.info("serverSocketChannel isRegistered={}", serverSocketChannel.isRegistered());
-        while (true) {
+        while (!Thread.interrupted()) {
             //每 3 秒阻塞等待就绪的 IO 事件
             int selected = selector.select(3 * 1000);
             if (selected == 0) {
@@ -49,14 +71,13 @@ public class ServerSocketChannelTests {
             log.info("selectionKeys size={}", selectionKeys.size());
             log.info("--------loop-----------");
             while (iterator.hasNext()) {
-                SelectionKey key  = iterator.next();
-                iterator.remove();
+                SelectionKey key = iterator.next();
                 if (!key.isValid()) {
                     continue;
                 }
                 log.info("key.interestOps={}", key.interestOps());
                 if (key.isAcceptable()) {
-                    handleAcceptable(key);
+                    handleAcceptable(key, selector);
                 } else if (key.isReadable()) {
                     handleReadable(key);
                 } else if (key.isWritable()) {
@@ -64,6 +85,7 @@ public class ServerSocketChannelTests {
                 }
 
             }
+            selectionKeys.clear();
         }
     }
 
@@ -92,7 +114,7 @@ public class ServerSocketChannelTests {
 //        channel.register(selector, SelectionKey.OP_READ, key.attachment());
     }
 
-    private void handleAcceptable(SelectionKey key) throws IOException {
+    private void handleAcceptable(SelectionKey key, Selector selector) throws IOException {
         ServerSocketChannel server = (ServerSocketChannel) key.channel();
         SocketChannel socketChannel = server.accept();
         socketChannel.configureBlocking(false);

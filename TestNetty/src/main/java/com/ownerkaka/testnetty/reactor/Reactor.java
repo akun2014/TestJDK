@@ -1,5 +1,7 @@
 package com.ownerkaka.testnetty.reactor;
 
+import com.ownerkaka.testcommon.util.Constants;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -61,5 +63,9 @@ public class Reactor implements Runnable {
                     new Handler(selector, channel);
             } catch (IOException ex) { /* ... */ }
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Reactor(Constants.PORT).run();
     }
 }

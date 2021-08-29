@@ -1,5 +1,7 @@
 package com.ownerkaka.testnetty.reactor;
 
+import lombok.SneakyThrows;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -23,14 +25,12 @@ public class MthreadReactor implements Runnable {
         selectors[0] = Selector.open();
         selectors[1] = Selector.open();
         serverSocket = ServerSocketChannel.open();
-        serverSocket.socket().bind(new InetSocketAddress(port));
+        serverSocket.bind(new InetSocketAddress(port));
         //非阻塞
         serverSocket.configureBlocking(false);
 
-
         //分步处理,第一步,接收accept事件
-        SelectionKey sk =
-                serverSocket.register(selectors[0], SelectionKey.OP_ACCEPT);
+        SelectionKey sk = serverSocket.register(selectors[0], SelectionKey.OP_ACCEPT);
         //attach callback object, Acceptor
         sk.attach(new Acceptor());
     }
@@ -44,7 +44,7 @@ public class MthreadReactor implements Runnable {
                     Iterator<SelectionKey> it = selected.iterator();
                     while (it.hasNext()) {
                         //Reactor负责dispatch收到的事件
-                        dispatch((SelectionKey) (it.next()));
+                        dispatch(it.next());
                     }
                     selected.clear();
                 }
@@ -62,8 +62,9 @@ public class MthreadReactor implements Runnable {
     }
 
 
-    class Acceptor { // ...
-        public synchronized void run() throws IOException {
+    class Acceptor implements Runnable { // ...
+        @SneakyThrows
+        public synchronized void run() {
             SocketChannel connection = serverSocket.accept(); //主selector负责accept
             if (connection != null) {
                 new Handler(selectors[next], connection); //选个subReactor去负责接收到的connection

@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.io.nio.buffer;
+package com.ownerkaka.testnetty.nio.buffer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;

@@ -39,14 +39,12 @@ public class Handler implements Runnable {
     }
 
     boolean outputIsComplete() {
-
         /* ... */
         return false;
     }
 
     void process() {
         /* ... */
-        return;
     }
 
     public void run() {

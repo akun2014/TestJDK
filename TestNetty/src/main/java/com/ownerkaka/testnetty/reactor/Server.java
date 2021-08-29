@@ -12,7 +12,7 @@ import java.util.Iterator;
 /**
  * @Author akun
  * @Date 2021/8/29 01:58
- * 最朴素的reactor模式
+ * 最朴素的Reactor模式
  */
 public class Server {
     public static void testServer() throws IOException {

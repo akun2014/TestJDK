@@ -1,4 +1,4 @@
-package com.ownerkaka.testjdk.io.nio.channel;
+package com.ownerkaka.testnetty.nio.channel;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -7,11 +7,9 @@ import org.junit.Test;
 import sun.nio.ch.FileChannelImpl;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
