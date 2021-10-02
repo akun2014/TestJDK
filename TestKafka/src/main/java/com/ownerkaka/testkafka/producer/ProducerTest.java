@@ -1,5 +1,6 @@
-package com.ownerkaka.testjdk.kafka;
+package com.ownerkaka.testkafka.producer;
 
+import com.ownerkaka.testkafka.KafkaConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -7,7 +8,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
 
 @Slf4j
-public class KafkaProducerDemo {
+public class ProducerTest {
 
     public static void main(String[] args) {
         Properties config = getConfig();
@@ -22,7 +23,7 @@ public class KafkaProducerDemo {
     }
 
     private static Properties getConfig() {
-        Properties properties = JavaKafkaConfigurer.getKafkaProperties();
+        Properties properties = KafkaConfig.getKafkaProperties();
 
         return properties;
     }

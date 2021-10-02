@@ -1,8 +1,10 @@
-package com.ownerkaka.testjdk.kafka;
+package com.ownerkaka.testkafka;
+
+import com.ownerkaka.testkafka.producer.ProducerTest;
 
 import java.util.Properties;
 
-public class JavaKafkaConfigurer {
+public class KafkaConfig {
 
     private static Properties properties;
 
@@ -22,7 +24,7 @@ public class JavaKafkaConfigurer {
         //获取配置文件kafka.properties的内容
         Properties kafkaProperties = new Properties();
         try {
-            kafkaProperties.load(KafkaProducerDemo.class.getClassLoader().getResourceAsStream("kafka.properties"));
+            kafkaProperties.load(ProducerTest.class.getClassLoader().getResourceAsStream("kafka.properties"));
         } catch (Exception e) {
             //没加载到文件，程序要考虑退出
             e.printStackTrace();
