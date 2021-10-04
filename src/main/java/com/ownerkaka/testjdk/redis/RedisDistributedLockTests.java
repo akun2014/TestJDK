@@ -46,7 +46,7 @@ public class RedisDistributedLockTests {
             threadPool.execute(task);
         }
         //等所有线程执行完成
-        ThreadPoolUtil.await();
+//        ThreadPoolUtil.await();
 
         Long llen = client.llen(lKey);
         //断言获取到锁的list.size == 1 为真

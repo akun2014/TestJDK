@@ -14,6 +14,9 @@ import org.springframework.util.ClassUtils;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -75,6 +78,16 @@ public class CommonTest {
 
     protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFactory) {
 
+
+    }
+
+    @Test
+    public void testThreadMXBean() {
+        ThreadMXBean bean = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] threadInfos = bean.dumpAllThreads(false, false);
+        for (ThreadInfo threadInfo : threadInfos) {
+            log.info("threadId={},name={}", threadInfo.getThreadId(), threadInfo.getThreadName());
+        }
     }
 
 
