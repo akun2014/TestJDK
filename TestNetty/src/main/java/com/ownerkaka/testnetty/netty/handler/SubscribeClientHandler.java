@@ -16,19 +16,18 @@ public class SubscribeClientHandler extends ChannelDuplexHandler {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("active");
         ctx.writeAndFlush(build());
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("{}", JSON.toJSONString(msg));
-        super.channelRead(ctx, msg);
     }
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         log.info("{}", JSON.toJSONString(msg));
-        super.write(ctx, msg, promise);
         ctx.writeAndFlush(build());
     }
 

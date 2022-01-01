@@ -1,4 +1,4 @@
-package com.ownerkaka.testnetty.socket;
+package com.ownerkaka.testnetty.bio;
 
 import com.ownerkaka.testcommon.util.Constants;
 import lombok.SneakyThrows;

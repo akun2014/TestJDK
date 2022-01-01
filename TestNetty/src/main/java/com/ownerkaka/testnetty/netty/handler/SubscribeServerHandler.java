@@ -17,6 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 public class SubscribeServerHandler extends SimpleChannelInboundHandler<SubscribeReq> {
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("{}", ctx);
+    }
+
+    @Override
     protected void channelRead0(ChannelHandlerContext ctx, SubscribeReq msg) throws Exception {
         log.info("{}", JSON.toJSONString(msg));
         ctx.writeAndFlush(build(msg.getSubReqID()));
