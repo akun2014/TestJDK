@@ -212,6 +212,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.aliyun.hbase</groupId>
+            <artifactId>alihbase-client</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.flipkart/hbase-object-mapper -->
+        <dependency>
+            <groupId>com.flipkart</groupId>
+            <artifactId>hbase-object-mapper</artifactId>
+            <version>1.19</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.impetus.kundera.client/kundera-hbase -->
+        <dependency>
+            <groupId>com.impetus.kundera.client</groupId>
+            <artifactId>kundera-hbase</artifactId>
+            <version>3.13</version>
+        </dependency>
     </dependencies>
 
     <build>
